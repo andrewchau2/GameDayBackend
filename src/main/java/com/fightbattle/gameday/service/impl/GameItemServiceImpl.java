@@ -1,5 +1,6 @@
 package com.fightbattle.gameday.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,12 @@ public class GameItemServiceImpl implements GameItemService {
     @Override
     public GameItemEntity create(GameItemEntity gameItemEntity) {
         return gameItemRepository.save(gameItemEntity);
+    }
+
+
+    @Override
+    public List<GameItemEntity> findAll() {
+        return gameItemRepository.findAll();
     }
     
 }
