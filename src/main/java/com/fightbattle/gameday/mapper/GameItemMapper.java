@@ -2,10 +2,13 @@ package com.fightbattle.gameday.mapper;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.fightbattle.gameday.pojo.dto.GameItemDto;
 import com.fightbattle.gameday.pojo.entity.GameItemEntity;
 
+
+@Component
 public class GameItemMapper implements ItemMapper<GameItemEntity, GameItemDto> {
 
     ModelMapper modelMapper;
