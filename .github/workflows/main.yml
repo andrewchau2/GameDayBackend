@@ -1,0 +1,22 @@
+image: alpine:latest
+
+
+variables:
+    VERSION: "1.0"
+
+stages:
+- test
+- build
+- deploy
+
+
+setup-tests:
+    stage: test
+    script:
+        - echo ${VERSION}
+        - exit 0
+
+testcases:
+    stage: test
+    script:
+        - echo "Hello"
