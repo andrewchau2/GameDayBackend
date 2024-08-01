@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+  gameday-db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - spring-cloud-network
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: password
+
+  gameday-server:
+    container_name: gameday-server
+    build:
+      dockerfile: Dockerfile
+    image: gameday-server:latest
+    ports:
+      - 8080:8080
+    networks:
+      - spring-cloud-network
+    depends_on:
+      - gameday-db
+
+networks:
+    spring-cloud-network:
+        driver: bridge

@@ -10,17 +10,7 @@ services:
       - spring-cloud-network
     environment:
       POSTGRES_PASSWORD: password
-
-  gameday-server:
-    build:
-      dockerfile: Dockerfile
-    ports:
-      - 8080:8080
-    networks:
-      - spring-cloud-network
-    depends_on:
-      - gameday-db
-
+      
 networks:
     spring-cloud-network:
         driver: bridge

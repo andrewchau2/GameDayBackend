@@ -1,8 +1,5 @@
 package com.fightbattle.gameday.pojo.entity;
 
-import java.sql.Date;
-import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +7,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -20,27 +16,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@ToString
 @Getter
 @Setter
+@Builder
 @Entity
-@Table(name="game_items")
-public class GameItemEntity {
-
+@Table(name = "users")
+public class User {
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gameitem_id_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
-
-    private String name;
-
-    private String genre;
-
-    private Date lastPlayed;
+    //... 
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "gamepage_id", referencedColumnName = "id")
-    private GamePage gamePage; 
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address addresses;
+
+    // ... getters and setters
 }
