@@ -1,6 +1,10 @@
 package com.fightbattle.gameday.pojo.entity;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -42,5 +46,6 @@ public class GameItemEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "gamepage_id", referencedColumnName = "id")
-    private GamePage gamePage; 
+    private GamePageEntity gamePage; 
+
 }

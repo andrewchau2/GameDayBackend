@@ -24,7 +24,7 @@ import lombok.ToString;
 @Setter
 @Entity
 @Table(name="game_pages")
-public class GamePage {
+public class GamePageEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gamepage_id_seq")
@@ -34,9 +34,12 @@ public class GamePage {
     @OneToOne(mappedBy = "gamePage")
     private GameItemEntity gameItemEntity;
 
+    @Column(name="steam_link")
     private String steamLink;
 
+    @Column(name="g2a_link")
     private String g2aLink;
 
+    @Column(name="cd_key_link")
     private String cdKeyLink;
 }
