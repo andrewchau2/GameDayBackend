@@ -44,6 +44,10 @@ public class GameItemEntity {
 
     private Date lastPlayed;
 
+
+    @ManyToOne
+    private GameDayTrackerEntity gameDayTrackerEntity;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "gamepage_id", referencedColumnName = "id")
     private GamePageEntity gamePage; 
