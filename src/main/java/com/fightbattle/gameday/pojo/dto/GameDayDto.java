@@ -18,7 +18,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class GameDayTrackerDto {
+public class GameDayDto {
     public Long id;
 
     public String temp;
