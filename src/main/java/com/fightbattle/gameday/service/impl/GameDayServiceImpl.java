@@ -6,30 +6,30 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fightbattle.gameday.pojo.entity.GameDayTrackerEntity;
-import com.fightbattle.gameday.repository.GameDayTrackerRepository;
-import com.fightbattle.gameday.service.GameDayTrackerService;
+import com.fightbattle.gameday.pojo.entity.GameDayEntity;
+import com.fightbattle.gameday.repository.GameDayRepository;
+import com.fightbattle.gameday.service.GameDayService;
 
 @Service
-public class GameDayTrackerServiceImpl implements GameDayTrackerService{
+public class GameDayServiceImpl implements GameDayService{
 
-    private GameDayTrackerRepository gameDayTrackerRepository;
+    private GameDayRepository gameDayTrackerRepository;
 
     @Autowired
-    public GameDayTrackerServiceImpl(GameDayTrackerRepository gameDayTrackerRepository){
+    public GameDayServiceImpl(GameDayRepository gameDayTrackerRepository){
         this.gameDayTrackerRepository = gameDayTrackerRepository;
     }
 
 
     @Override
-    public GameDayTrackerEntity find(Long id) {
-        Optional<GameDayTrackerEntity> res = gameDayTrackerRepository.findById(id);
+    public GameDayEntity find(Long id) {
+        Optional<GameDayEntity> res = gameDayTrackerRepository.findById(id);
         
         return res.isPresent() ? res.get() : null;
     }
 
     @Override
-    public List<GameDayTrackerEntity> findAll() {
+    public List<GameDayEntity> findAll() {
         return gameDayTrackerRepository.findAll();
     }
 
@@ -39,18 +39,18 @@ public class GameDayTrackerServiceImpl implements GameDayTrackerService{
     }
 
     @Override
-    public GameDayTrackerEntity partialUpdate(Long id, GameDayTrackerEntity gameDayTrackerEntity) {
+    public GameDayEntity partialUpdate(Long id, GameDayEntity gameDayTrackerEntity) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'partialUpdate'");
     }
 
     @Override
-    public GameDayTrackerEntity fullUpdate(GameDayTrackerEntity gameDayTrackerEntity) {
+    public GameDayEntity fullUpdate(GameDayEntity gameDayTrackerEntity) {
         return gameDayTrackerRepository.save(gameDayTrackerEntity);
     }
 
     @Override
-    public GameDayTrackerEntity create(GameDayTrackerEntity gameDayTrackerEntity) {
+    public GameDayEntity create(GameDayEntity gameDayTrackerEntity) {
         return gameDayTrackerRepository.save(gameDayTrackerEntity);
     }
     

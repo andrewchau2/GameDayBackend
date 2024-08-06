@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-public interface DefaultController<A> {
+public interface GamePageController<A> {
 
     public ResponseEntity<List<A>> findGames();
 
