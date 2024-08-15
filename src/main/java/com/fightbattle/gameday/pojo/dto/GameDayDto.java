@@ -20,8 +20,6 @@ import lombok.ToString;
 @NoArgsConstructor
 public class GameDayDto {
     public Long id;
-
-    public String temp;
     
     public Date date;
 

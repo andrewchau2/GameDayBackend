@@ -23,7 +23,7 @@ public class GameItemDto {
 
     private String genre;
 
-    private Date lastPlayed;
+    private String lastPlayed;
 
     private List<String> storePage; 
 }

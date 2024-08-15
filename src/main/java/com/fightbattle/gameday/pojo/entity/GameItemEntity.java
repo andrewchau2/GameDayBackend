@@ -49,7 +49,7 @@ public class GameItemEntity {
 
     private String genre;
 
-    private Date lastPlayed;
+    private String lastPlayed;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "gamepage_id", referencedColumnName = "id")

@@ -39,10 +39,6 @@ public class GameDayEntity {
     public Long id;
 
 
-    public String temp;
-    
-    public Date date;
-
     @ManyToMany
     @JoinTable(
             name = "recently_played",
