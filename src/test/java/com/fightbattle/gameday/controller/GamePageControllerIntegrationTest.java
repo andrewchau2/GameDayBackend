@@ -9,15 +9,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.result.StatusResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fightbattle.gameday.pojo.dto.GamePageDto;
-import com.fightbattle.gameday.service.GamePageService;
 import com.fightbattle.gameday.util.CreateTestPages;
 
 @SpringBootTest
@@ -26,9 +22,6 @@ import com.fightbattle.gameday.util.CreateTestPages;
 @AutoConfigureMockMvc
 public class GamePageControllerIntegrationTest {
     
-    @Autowired
-    private GamePageService gamePageService;
-
     @Autowired
     ObjectMapper objectMapper;
 
@@ -42,12 +35,12 @@ public class GamePageControllerIntegrationTest {
     @Test
     public void testThatCreateTestPageAReturns200OkStatus() throws Exception{
         GamePageDto gamePageDto = testPages.CreateTestPageA();
-        String res = objectMapper.writeValueAsString(gamePageDto);
+        String gamePageJson = objectMapper.writeValueAsString(gamePageDto);
         
         mockMvc.perform(
             MockMvcRequestBuilders.put("/gamepages")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(res)
+            .content(gamePageJson)
         ).andExpect(
             MockMvcResultMatchers.status().isCreated()
         );
@@ -57,27 +50,63 @@ public class GamePageControllerIntegrationTest {
     @Test
     public void testThatCreateTestPageASuccessfullyCreated() throws Exception{
         GamePageDto gamePageDto = testPages.CreateTestPageA();
-        String res = objectMapper.writeValueAsString(gamePageDto);
+        String gamePageJson = objectMapper.writeValueAsString(gamePageDto);
 
         mockMvc.perform(
             MockMvcRequestBuilders.put("/gamepages")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(res)
+            .content(gamePageJson)
         ).andExpect(
             MockMvcResultMatchers.jsonPath("$.id").isNumber()
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.steamLink").value(gamePageDto.getSteamLink())
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.g2aLink").value(gamePageDto.getG2aLink())
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.cdKeyLink").value(gamePageDto.getCdKeyLink())
         );
     }
 
 
     @Test
-    public void testThatCreateTestPageBSuccessfullyCreated(){
+    public void testThatCreateTestPageBSuccessfullyCreated() throws Exception{
+        GamePageDto gamePageDto = testPages.CreateTestPageB();
+        String gamePageJson = objectMapper.writeValueAsString(gamePageDto);
 
+        mockMvc.perform(
+            MockMvcRequestBuilders.put("/gamepages")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(gamePageJson)
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.id").isNumber()
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.steamLink").value(gamePageDto.getSteamLink())
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.g2aLink").value(gamePageDto.getG2aLink())
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.cdKeyLink").value(gamePageDto.getCdKeyLink())
+        );
     }
 
 
     @Test
-    public void testThatCreateTestPageNullSuccessfullyCreated(){
+    public void testThatCreateTestPageNullSuccessfullyCreated() throws Exception{
+        GamePageDto gamePageDto = testPages.CreateTestPageNull();
+        String gamePageJson = objectMapper.writeValueAsString(gamePageDto);
 
+        mockMvc.perform(
+            MockMvcRequestBuilders.put("/gamepages")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(gamePageJson)
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.id").isNumber()
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.steamLink").value(gamePageDto.getSteamLink())
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.g2aLink").value(gamePageDto.getG2aLink())
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.cdKeyLink").value(gamePageDto.getCdKeyLink())
+        );
     }
 
 

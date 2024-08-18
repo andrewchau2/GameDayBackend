@@ -52,4 +52,10 @@ public class CreateTestGameItems {
         return mapper.mapFrom(gameItemEntity);
     }
 
+    public GameItemDto createTestGameNull(){
+        GameItemEntity gameItemEntity = GameItemEntity.builder()
+        .build();
+        return mapper.mapFrom(gameItemEntity);
+    }
+
 }

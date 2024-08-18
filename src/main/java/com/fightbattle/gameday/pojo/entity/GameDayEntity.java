@@ -36,8 +36,13 @@ public class GameDayEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gameday_id_seq")
-    public Long id;
+    private Long id;
 
+    private String serverName;
+
+    private String description;
+
+    private String nextGameDay;
 
     @ManyToMany
     @JoinTable(
@@ -45,7 +50,7 @@ public class GameDayEntity {
             joinColumns = @JoinColumn(name = "game_day_id"),
             inverseJoinColumns = @JoinColumn(name = "game_item_id")
     )
-    public Set<GameItemEntity> recentlyPlayed = new HashSet<>() ;
+    private Set<GameItemEntity> recentlyPlayed = new HashSet<>() ;
 
     //public List<GameItemEntity> wishlist;
 }
