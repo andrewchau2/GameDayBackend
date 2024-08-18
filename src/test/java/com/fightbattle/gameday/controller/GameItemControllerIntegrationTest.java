@@ -35,7 +35,7 @@ public class GameItemControllerIntegrationTest {
     @Test
     public void testThatCreateGameSuccessfullyReturns201Created() throws Exception{
         GameItemDto gameItemDto = createGames.createTestGameA();
-        System.out.println(gameItemDto);
+
 
         gameItemDto.setId(null); //Id is auto-generated
         String gameJson = objectMapper.writeValueAsString(gameItemDto);
@@ -118,8 +118,6 @@ public class GameItemControllerIntegrationTest {
             ).andExpect(
             MockMvcResultMatchers.jsonPath("$.lastPlayed").value(gameItemDto.getLastPlayed())
         );
-        
-        
     }
 
 
