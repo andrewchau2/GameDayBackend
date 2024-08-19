@@ -2,6 +2,8 @@ package com.fightbattle.gameday.pojo.dto;
 
 import java.util.List;
 
+import com.fightbattle.gameday.pojo.entity.GamePageEntity;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,6 @@ public class GameItemDto {
 
     private String lastPlayed;
 
-    private List<String> storePage; 
+    private GamePageEntity gamePage;
 }
 

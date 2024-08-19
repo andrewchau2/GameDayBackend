@@ -13,7 +13,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fightbattle.gameday.mapper.GameItemMapper;
+import com.fightbattle.gameday.pojo.dto.GameItemDto;
 import com.fightbattle.gameday.pojo.dto.GamePageDto;
+import com.fightbattle.gameday.pojo.entity.GameItemEntity;
+import com.fightbattle.gameday.service.GameItemService;
+import com.fightbattle.gameday.util.CreateTestGameItems;
 import com.fightbattle.gameday.util.CreateTestPages;
 
 @SpringBootTest
@@ -31,6 +36,14 @@ public class GamePageControllerIntegrationTest {
     @Autowired
     CreateTestPages testPages;
 
+    @Autowired
+    CreateTestGameItems testGames;
+
+    @Autowired
+    GameItemService gameItemService;
+
+    @Autowired
+    GameItemMapper gameItemMapper;
 
     @Test
     public void testThatCreateTestPageAReturns200OkStatus() throws Exception{
@@ -49,11 +62,13 @@ public class GamePageControllerIntegrationTest {
 
     @Test
     public void testThatCreateTestPageASuccessfullyCreated() throws Exception{
+        GameItemDto gameItemDto = testGames.createTestGameA();
+        GameItemEntity created = gameItemService.create(gameItemMapper.mapTo(gameItemDto));
         GamePageDto gamePageDto = testPages.CreateTestPageA();
         String gamePageJson = objectMapper.writeValueAsString(gamePageDto);
-
+        String url = "/games/" + created.getId().toString() + "/gamepages";
         mockMvc.perform(
-            MockMvcRequestBuilders.put("/gamepages")
+            MockMvcRequestBuilders.put(url)
             .contentType(MediaType.APPLICATION_JSON)
             .content(gamePageJson)
         ).andExpect(

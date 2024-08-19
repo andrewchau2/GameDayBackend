@@ -8,52 +8,61 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fightbattle.gameday.controller.GamePageController;
 import com.fightbattle.gameday.mapper.GamePageMapper;
 import com.fightbattle.gameday.pojo.dto.GamePageDto;
+import com.fightbattle.gameday.pojo.entity.GameItemEntity;
 import com.fightbattle.gameday.pojo.entity.GamePageEntity;
+import com.fightbattle.gameday.service.GameItemService;
 import com.fightbattle.gameday.service.GamePageService;
 @RestController
 public class GamePageControllerImpl{
 
+    @Autowired
     private GamePageService gamePageService;
+    
+    @Autowired
     private GamePageMapper gamePageMapper;
 
     @Autowired
-    public GamePageControllerImpl(GamePageService gamePageService, GamePageMapper gamePageMapper){
-        this.gamePageService = gamePageService;
-        this.gamePageMapper = gamePageMapper;
-    }
-
-
+    private GameItemService gameItemService;
 
     @GetMapping(path="/gamepages")
-    public ResponseEntity<List<GamePageDto>> findGames() {
+    public ResponseEntity<List<GamePageDto>> findGamePages() {
         List<GamePageDto> res = gamePageService.findAll().stream().map(gamePageMapper::mapFrom).toList();
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
 
-    @PutMapping(path="/gamepages")
-    public ResponseEntity<GamePageDto> createGame(@RequestBody GamePageDto gamePageDto) {
-        System.out.println("Here");
-        System.out.println(gamePageDto.toString());
+    @PutMapping(path="games/{id}/gamepages/")
+    public ResponseEntity<GamePageDto> createGamePages(
+    @PathVariable(name="id") Long gameItemId, 
+    @RequestBody GamePageDto gamePageDto) {
+        GameItemEntity gameItemEntity = gameItemService.find(gameItemId);
+
         GamePageEntity res = gamePageMapper.mapTo(gamePageDto);
         GamePageDto created = gamePageMapper.mapFrom(gamePageService.create(res));
+        gameItemEntity.setGamePage(res);
+        gameItemService.fullUpdate(gameItemEntity);
+        
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
     @SuppressWarnings("rawtypes")
-    @DeleteMapping(path="/gamepages/{id}")
-    public ResponseEntity deleteGame(@PathVariable Long id) {
+    @DeleteMapping(path="games/{gameId}/gamepages/{gamePageId}")
+    public ResponseEntity deleteGame(
+        @PathVariable(name="gameId") Long gameId,
+        @PathVariable(name="gamePageId") Long gamePageId) {
+            //Removing dependicies
+            GameItemEntity gameItemEntity = gameItemService.find(gameId);
+            gameItemEntity.setGamePage(null);
+            gameItemService.fullUpdate(gameItemEntity);
 
-        gamePageService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            gamePageService.delete(gamePageId);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(path="/gamepages/{id}")

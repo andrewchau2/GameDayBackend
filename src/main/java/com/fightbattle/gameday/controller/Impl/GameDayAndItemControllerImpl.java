@@ -35,7 +35,6 @@ public class GameDayAndItemControllerImpl {
     @PutMapping(path="/gamedays/{gameday_id}/games/")
     public GameItemDto addRecentlyPlayedItem(@PathVariable(name="gameday_id") Long gameday_id, @RequestBody GameItemDto gameItemDto)
     {
-        
         return null;
     }
 
