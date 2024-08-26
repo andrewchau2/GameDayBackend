@@ -1,4 +1,4 @@
-package com.fightbattle.gameday.controller;
+package com.fightbattle.gameday.controller.GamePage;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +25,7 @@ import com.fightbattle.gameday.util.CreateTestPages;
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
-public class GamePageControllerIntegrationTest {
+public class GamePageCreateIntegrationTest {
     
     @Autowired
     ObjectMapper objectMapper;

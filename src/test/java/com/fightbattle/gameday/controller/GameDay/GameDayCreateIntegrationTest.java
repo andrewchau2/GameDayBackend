@@ -1,4 +1,4 @@
-package com.fightbattle.gameday.controller;
+package com.fightbattle.gameday.controller.GameDay;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +20,7 @@ import com.fightbattle.gameday.util.CreateTestGameDayItems;
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
-public class GameDayControllerIntegrationTest {
+public class GameDayCreateIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
