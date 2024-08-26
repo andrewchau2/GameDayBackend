@@ -47,11 +47,13 @@ public class GamePageControllerIntegrationTest {
 
     @Test
     public void testThatCreateTestPageAReturns200OkStatus() throws Exception{
+        GameItemDto gameItemDto = testGames.createTestGameA();
+        GameItemEntity created = gameItemService.create(gameItemMapper.mapTo(gameItemDto));
         GamePageDto gamePageDto = testPages.CreateTestPageA();
         String gamePageJson = objectMapper.writeValueAsString(gamePageDto);
-        
+        String url = "/games/" + created.getId().toString() + "/gamepages";
         mockMvc.perform(
-            MockMvcRequestBuilders.put("/gamepages")
+            MockMvcRequestBuilders.put(url)
             .contentType(MediaType.APPLICATION_JSON)
             .content(gamePageJson)
         ).andExpect(
@@ -85,11 +87,14 @@ public class GamePageControllerIntegrationTest {
 
     @Test
     public void testThatCreateTestPageBSuccessfullyCreated() throws Exception{
+        GameItemDto gameItemDto = testGames.createTestGameA();
+        GameItemEntity created = gameItemService.create(gameItemMapper.mapTo(gameItemDto));
         GamePageDto gamePageDto = testPages.CreateTestPageB();
         String gamePageJson = objectMapper.writeValueAsString(gamePageDto);
+        String url = "/games/" + created.getId().toString() + "/gamepages";
 
         mockMvc.perform(
-            MockMvcRequestBuilders.put("/gamepages")
+            MockMvcRequestBuilders.put(url)
             .contentType(MediaType.APPLICATION_JSON)
             .content(gamePageJson)
         ).andExpect(
@@ -106,11 +111,14 @@ public class GamePageControllerIntegrationTest {
 
     @Test
     public void testThatCreateTestPageNullSuccessfullyCreated() throws Exception{
+        GameItemDto gameItemDto = testGames.createTestGameA();
+        GameItemEntity created = gameItemService.create(gameItemMapper.mapTo(gameItemDto));
         GamePageDto gamePageDto = testPages.CreateTestPageNull();
         String gamePageJson = objectMapper.writeValueAsString(gamePageDto);
+        String url = "/games/" + created.getId().toString() + "/gamepages";
 
         mockMvc.perform(
-            MockMvcRequestBuilders.put("/gamepages")
+            MockMvcRequestBuilders.put(url)
             .contentType(MediaType.APPLICATION_JSON)
             .content(gamePageJson)
         ).andExpect(

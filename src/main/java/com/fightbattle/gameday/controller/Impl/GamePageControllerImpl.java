@@ -18,6 +18,7 @@ import com.fightbattle.gameday.pojo.entity.GameItemEntity;
 import com.fightbattle.gameday.pojo.entity.GamePageEntity;
 import com.fightbattle.gameday.service.GameItemService;
 import com.fightbattle.gameday.service.GamePageService;
+
 @RestController
 public class GamePageControllerImpl{
 
@@ -36,11 +37,11 @@ public class GamePageControllerImpl{
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-
-    @PutMapping(path="games/{id}/gamepages/")
+    @PutMapping(path="/games/{id}/gamepages")
     public ResponseEntity<GamePageDto> createGamePages(
-    @PathVariable(name="id") Long gameItemId, 
-    @RequestBody GamePageDto gamePageDto) {
+        @PathVariable(name="id") Long gameItemId, 
+        @RequestBody GamePageDto gamePageDto) {
+        System.out.println("Running\n\n\n");
         GameItemEntity gameItemEntity = gameItemService.find(gameItemId);
 
         GamePageEntity res = gamePageMapper.mapTo(gamePageDto);
@@ -52,7 +53,7 @@ public class GamePageControllerImpl{
     }
 
     @SuppressWarnings("rawtypes")
-    @DeleteMapping(path="games/{gameId}/gamepages/{gamePageId}")
+    @DeleteMapping(path="/games/{gameId}/gamepages/{gamePageId}")
     public ResponseEntity deleteGame(
         @PathVariable(name="gameId") Long gameId,
         @PathVariable(name="gamePageId") Long gamePageId) {
