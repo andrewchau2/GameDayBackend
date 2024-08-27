@@ -33,7 +33,7 @@ public class GameDayControllerImpl{
 
 
     @GetMapping(path="/gamedays")
-    public ResponseEntity<List<GameDayDto>> findGames() {
+    public ResponseEntity<List<GameDayDto>> findGameDayTracker() {
 
         List<GameDayEntity> res = gameDayTrackerService.findAll();
 
@@ -42,7 +42,7 @@ public class GameDayControllerImpl{
 
 
     @PutMapping(path="/gamedays")
-    public ResponseEntity<GameDayDto> createGame(@RequestBody GameDayDto gameDayTrackerDto) {
+    public ResponseEntity<GameDayDto> createGameDayTracker(@RequestBody GameDayDto gameDayTrackerDto) {
         GameDayEntity convert = gameDayTrackerMapper.mapTo(gameDayTrackerDto);
         GameDayEntity res = gameDayTrackerService.create(convert);
         return new ResponseEntity<>(gameDayTrackerMapper.mapFrom(res), HttpStatus.CREATED);
@@ -50,13 +50,13 @@ public class GameDayControllerImpl{
 
     
     @SuppressWarnings("rawtypes")
-    @DeleteMapping(path="gamedays/{id}")
-    public ResponseEntity deleteGame(@PathVariable Long id) {
+    @DeleteMapping(path="/gamedays/{id}")
+    public ResponseEntity deleteGameDayTracker(@PathVariable Long id) {
         gameDayTrackerService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<GameDayDto> findGame(Long id) {
+    public ResponseEntity<GameDayDto> findGameDayTracker(Long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findGame'");
     }

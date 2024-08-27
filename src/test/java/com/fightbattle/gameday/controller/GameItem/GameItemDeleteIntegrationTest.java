@@ -42,7 +42,7 @@ public class GameItemDeleteIntegrationTest {
     private GameItemMapper gMapper;
 
     @Test
-    public void testThatGameItemExistsAndDeleteReturns404NotFound() throws Exception{
+    public void testThatGameItemExistsAndDeleteReturns204NoContent() throws Exception{
         GameItemDto gameItemDto = create.createTestGameA();
         String gameItemJson = objectMapper.writeValueAsString(gameItemDto);
         GameItemEntity gameItemEntity = gameService.create(gMapper.mapTo(gameItemDto));
@@ -57,7 +57,7 @@ public class GameItemDeleteIntegrationTest {
     }
 
     @Test
-    public void testThatGameItemNotExistAndDeleteReturns404NotFound() throws Exception{
+    public void testThatGameItemNotExistAndDeleteReturns204NoContent() throws Exception{
         mockMvc.perform(
             MockMvcRequestBuilders.delete("/games/999")
         ).andExpect(
