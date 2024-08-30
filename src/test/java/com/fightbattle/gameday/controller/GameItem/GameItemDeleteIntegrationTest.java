@@ -18,7 +18,7 @@ import com.fightbattle.gameday.pojo.dto.GameItemDto;
 import com.fightbattle.gameday.pojo.entity.GameItemEntity;
 import com.fightbattle.gameday.service.GameDayService;
 import com.fightbattle.gameday.service.GameItemService;
-import com.fightbattle.gameday.util.CreateTestGameItems;
+import com.fightbattle.gameday.util.dtos.TestGameItemDtos;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -33,7 +33,7 @@ public class GameItemDeleteIntegrationTest {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private CreateTestGameItems create;
+    private TestGameItemDtos create;
 
     @Autowired
     private GameItemService gameService;

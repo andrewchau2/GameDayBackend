@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fightbattle.gameday.pojo.dto.GameDayDto;
-import com.fightbattle.gameday.util.CreateTestGameDayItems;
+import com.fightbattle.gameday.util.dtos.TestGameDayDtos;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -29,7 +29,7 @@ public class GameDayCreateIntegrationTest {
     ObjectMapper objectMapper;
 
     @Autowired
-    CreateTestGameDayItems gameDayItems;
+    TestGameDayDtos gameDayItems;
 
     @Test
     public void testThatGameDayPutRequestReturns200StatusOk() throws Exception{

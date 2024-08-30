@@ -19,7 +19,7 @@ import com.fightbattle.gameday.mapper.GameDayMapper;
 import com.fightbattle.gameday.pojo.dto.GameDayDto;
 import com.fightbattle.gameday.pojo.entity.GameDayEntity;
 import com.fightbattle.gameday.service.GameDayService;
-import com.fightbattle.gameday.util.CreateTestGameDayItems;
+import com.fightbattle.gameday.util.dtos.TestGameDayDtos;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -34,7 +34,7 @@ public class GameDayDeleteIntegrationTest {
     ObjectMapper objectMapper;
 
     @Autowired
-    CreateTestGameDayItems create;
+    TestGameDayDtos create;
     
     @Autowired
     GameDayService gameDayService;

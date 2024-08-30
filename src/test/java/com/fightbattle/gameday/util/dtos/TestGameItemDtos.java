@@ -1,4 +1,4 @@
-package com.fightbattle.gameday.util;
+package com.fightbattle.gameday.util.dtos;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -12,13 +12,13 @@ import com.fightbattle.gameday.pojo.entity.GameItemEntity;
 
 
 @Component
-public class CreateTestGameItems {
+public class TestGameItemDtos {
     
     
     public GameItemMapper mapper;
 
     @Autowired
-    public CreateTestGameItems(GameItemMapper gameItemMapper){
+    public TestGameItemDtos(GameItemMapper gameItemMapper){
         this.mapper = gameItemMapper;
     }
 

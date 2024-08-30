@@ -1,4 +1,4 @@
-package com.fightbattle.gameday.util;
+package com.fightbattle.gameday.util.dtos;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,7 @@ import com.fightbattle.gameday.pojo.dto.GameDayDto;
 import com.fightbattle.gameday.pojo.entity.GameDayEntity;
 
 @Component
-public class CreateTestGameDayItems {
+public class TestGameDayDtos {
     
     @Autowired
     GameDayMapper gameDayMapper;

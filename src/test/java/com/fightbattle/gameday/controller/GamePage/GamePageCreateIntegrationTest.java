@@ -18,8 +18,8 @@ import com.fightbattle.gameday.pojo.dto.GameItemDto;
 import com.fightbattle.gameday.pojo.dto.GamePageDto;
 import com.fightbattle.gameday.pojo.entity.GameItemEntity;
 import com.fightbattle.gameday.service.GameItemService;
-import com.fightbattle.gameday.util.CreateTestGameItems;
-import com.fightbattle.gameday.util.CreateTestPages;
+import com.fightbattle.gameday.util.dtos.TestGameItemDtos;
+import com.fightbattle.gameday.util.dtos.TestGamePageDtos;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -34,10 +34,10 @@ public class GamePageCreateIntegrationTest {
     MockMvc mockMvc;
 
     @Autowired
-    CreateTestPages testPages;
+    TestGamePageDtos testPages;
 
     @Autowired
-    CreateTestGameItems testGames;
+    TestGameItemDtos testGames;
 
     @Autowired
     GameItemService gameItemService;

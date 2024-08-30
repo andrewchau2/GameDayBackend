@@ -1,4 +1,4 @@
-package com.fightbattle.gameday.util;
+package com.fightbattle.gameday.util.dtos;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import com.fightbattle.gameday.pojo.entity.GamePageEntity;
 
 
 @Component
-public class CreateTestPages {
+public class TestGamePageDtos {
 
     @Autowired 
     GamePageMapper gMapper;
