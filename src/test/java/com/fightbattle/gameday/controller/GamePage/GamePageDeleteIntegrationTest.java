@@ -14,10 +14,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fightbattle.gameday.mapper.GamePageMapper;
+import com.fightbattle.gameday.pojo.dto.GamePageDto;
+import com.fightbattle.gameday.pojo.entity.GameItemEntity;
+import com.fightbattle.gameday.pojo.entity.GamePageEntity;
 import com.fightbattle.gameday.service.GameItemService;
 import com.fightbattle.gameday.service.GamePageService;
-import com.fightbattle.gameday.util.dtos.TestGameItemDtos;
 import com.fightbattle.gameday.util.dtos.TestGamePageDtos;
+import com.fightbattle.gameday.util.entities.TestGameItemEntities;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -41,40 +44,28 @@ public class GamePageDeleteIntegrationTest {
     TestGamePageDtos createPages;
 
     @Autowired
-    TestGameItemDtos createGame;
+    TestGameItemEntities createGame;
 
     @Autowired
     GameItemService gameItemService;
 
-    // @Test
-    // public void testThatGameDayDeleteExistsAndRequestReturns204NotFound() throws Exception{
-    //     GameItemDto gameItemDto = createGame.createTestGameA();
-    //     GamePageDto gamePageDto = createPages.CreateTestPageA();
-        
-    //     String gameDayJson = objectMapper.writeValueAsString(gamePageDto);
-    //     GamePageEntity gamePageEntity = gMapper.mapTo(gamePageDto);
-    //     gameItemService.create(null);
-    //     GameDayEntity output = service.create(gamePageEntity);
-    //     String url = "/gamedays/" + output.getId();
-        
-    //     mockMvc.perform(
-    //         MockMvcRequestBuilders.delete(url)
-    //         .contentType(MediaType.APPLICATION_JSON)
-    //         .content(gameDayJson)
-    //     ).andExpect(
-    //         MockMvcResultMatchers.status().isNoContent()
-    //     );
-    // }
-
     @Test
-    public void testThatGamePageDeleteNotExistsAndRequestReturns204NotFound() throws Exception{
-        String url = "/gamedays/9999";
+    public void testThatGameDayDeleteExistsAndRequestReturns204NotFound() throws Exception{
+        GameItemEntity gameItem = createGame.createTestGameA();
+        GameItemEntity createdGame = gameItemService.create(gameItem);
+
+        GamePageDto gamePageDto = createPages.CreateTestPageA();
+        String gamePageJson = objectMapper.writeValueAsString(gamePageDto);
+        GamePageEntity gamePageEntity = gMapper.mapTo(gamePageDto);
+        GamePageEntity output = gamePageService.create(gamePageEntity);
+        String url = "/games/" + createdGame.getId() + "/gamepages/" + output.getId();
         
         mockMvc.perform(
             MockMvcRequestBuilders.delete(url)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(gamePageJson)
         ).andExpect(
             MockMvcResultMatchers.status().isNoContent()
         );
     }
-
 }

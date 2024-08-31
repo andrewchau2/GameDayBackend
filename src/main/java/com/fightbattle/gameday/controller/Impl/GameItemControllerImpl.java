@@ -31,14 +31,14 @@ public class GameItemControllerImpl{
     }
 
     @GetMapping(path = "/games")
-    public ResponseEntity<List<GameItemDto>> findGames(){
+    public ResponseEntity<List<GameItemDto>> getAll(){
         List<GameItemEntity> res = gameItemService.findAll();
     
         return new ResponseEntity<>(res.stream().map(modelMapper::mapFrom).toList(), HttpStatus.FOUND);
     }
 
     @PutMapping(path = "/games")
-    public ResponseEntity<GameItemDto> createGame(@RequestBody GameItemDto gameItemDto){
+    public ResponseEntity<GameItemDto> create(@RequestBody GameItemDto gameItemDto){
         GameItemEntity gameItemEntity = modelMapper.mapTo(gameItemDto);
         GameItemEntity created = gameItemService.create(gameItemEntity);
         return new ResponseEntity<>(modelMapper.mapFrom(created), HttpStatus.CREATED);
@@ -47,13 +47,13 @@ public class GameItemControllerImpl{
 
     @SuppressWarnings("rawtypes")
     @DeleteMapping(path = "/games/{id}")
-    public ResponseEntity deleteGame(@PathVariable("id") Long id){
+    public ResponseEntity delete(@PathVariable("id") Long id){
         gameItemService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping(path = "/games/{id}")
-    public ResponseEntity<GameItemDto> findGame(@PathVariable("id") Long id){
+    public ResponseEntity<GameItemDto> findById(@PathVariable("id") Long id){
         GameItemEntity gameItemEntity = gameItemService.find(id);
         GameItemDto result = modelMapper.mapFrom(gameItemEntity);
         return new ResponseEntity<>(result, HttpStatus.FOUND);

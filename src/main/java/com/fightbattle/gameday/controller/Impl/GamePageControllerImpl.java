@@ -63,7 +63,7 @@ public class GamePageControllerImpl{
             gameItemService.fullUpdate(gameItemEntity);
 
             gamePageService.delete(gamePageId);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping(path="/gamepages/{id}")

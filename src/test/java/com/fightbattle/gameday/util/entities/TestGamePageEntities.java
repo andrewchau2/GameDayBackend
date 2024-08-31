@@ -2,7 +2,7 @@ package com.fightbattle.gameday.util.entities;
 
 import com.fightbattle.gameday.pojo.entity.GameDayEntity;
 
-public class Test {
+public class TestGamePageEntities {
     public GameDayEntity createTestGameDayItemA(){
         return GameDayEntity.builder()
         .description("Test description")
