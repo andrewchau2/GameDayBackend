@@ -16,7 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fightbattle.gameday.mapper.GameItemMapper;
 import com.fightbattle.gameday.pojo.dto.GameItemDto;
 import com.fightbattle.gameday.pojo.entity.GameItemEntity;
-import com.fightbattle.gameday.service.GameDayService;
 import com.fightbattle.gameday.service.GameItemService;
 import com.fightbattle.gameday.util.dtos.TestGameItemDtos;
 
