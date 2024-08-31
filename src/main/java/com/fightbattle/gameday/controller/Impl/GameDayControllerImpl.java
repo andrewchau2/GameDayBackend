@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fightbattle.gameday.controller.GameDayController;
 import com.fightbattle.gameday.mapper.GameDayMapper;
 import com.fightbattle.gameday.pojo.dto.GameDayDto;
 import com.fightbattle.gameday.pojo.entity.GameDayEntity;
 import com.fightbattle.gameday.service.GameDayService;
 
 @RestController
-public class GameDayControllerImpl{
+public class GameDayControllerImpl implements GameDayController{
 
     private GameDayService gameDayTrackerService;
     private GameDayMapper gameDayTrackerMapper;

@@ -15,7 +15,7 @@ import com.fightbattle.gameday.util.dtos.TestGameItemDtos;
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @AutoConfiguration
-public class GameItemFindIntegrationTest {
+public class GameItemGetIntegrationTest {
     
     @Autowired
     MockMvc mockMvc;

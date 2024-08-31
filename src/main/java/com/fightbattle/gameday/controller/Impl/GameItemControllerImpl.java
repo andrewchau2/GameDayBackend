@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fightbattle.gameday.controller.GameItemController;
 import com.fightbattle.gameday.mapper.GameItemMapper;
 import com.fightbattle.gameday.pojo.dto.GameItemDto;
 import com.fightbattle.gameday.pojo.entity.GameItemEntity;
 import com.fightbattle.gameday.service.GameItemService;
 
 @RestController
-public class GameItemControllerImpl{
+public class GameItemControllerImpl implements GameItemController{
     
     private GameItemService gameItemService;
     private GameItemMapper modelMapper;
@@ -53,7 +54,7 @@ public class GameItemControllerImpl{
     }
 
     @GetMapping(path = "/games/{id}")
-    public ResponseEntity<GameItemDto> findById(@PathVariable("id") Long id){
+    public ResponseEntity<GameItemDto> getById(@PathVariable("id") Long id){
         GameItemEntity gameItemEntity = gameItemService.find(id);
         GameItemDto result = modelMapper.mapFrom(gameItemEntity);
         return new ResponseEntity<>(result, HttpStatus.FOUND);

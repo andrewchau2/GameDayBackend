@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.fightbattle.gameday.controller.GameDayAndItemController;
 import com.fightbattle.gameday.mapper.GameDayMapper;
 import com.fightbattle.gameday.mapper.GameItemMapper;
-import com.fightbattle.gameday.pojo.dto.GameDayDto;
 import com.fightbattle.gameday.pojo.dto.GameItemDto;
 import com.fightbattle.gameday.service.GameDayService;
 import com.fightbattle.gameday.service.GameItemService;
 
-public class GameDayAndItemControllerImpl {
+public class GameDayAndItemControllerImpl implements GameDayAndItemController {
     private GameDayService gameDayTrackerService;
     private GameDayMapper gameDayTrackerMapper;
     private GameItemMapper gameItemMapper;

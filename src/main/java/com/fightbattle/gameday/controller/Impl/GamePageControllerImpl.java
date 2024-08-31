@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fightbattle.gameday.controller.GamePageController;
 import com.fightbattle.gameday.mapper.GamePageMapper;
 import com.fightbattle.gameday.pojo.dto.GamePageDto;
 import com.fightbattle.gameday.pojo.entity.GameItemEntity;
@@ -20,7 +21,7 @@ import com.fightbattle.gameday.service.GameItemService;
 import com.fightbattle.gameday.service.GamePageService;
 
 @RestController
-public class GamePageControllerImpl{
+public class GamePageControllerImpl implements GamePageController{
 
     @Autowired
     private GamePageService gamePageService;
@@ -32,13 +33,13 @@ public class GamePageControllerImpl{
     private GameItemService gameItemService;
 
     @GetMapping(path="/gamepages")
-    public ResponseEntity<List<GamePageDto>> findGamePages() {
+    public ResponseEntity<List<GamePageDto>> getAll() {
         List<GamePageDto> res = gamePageService.findAll().stream().map(gamePageMapper::mapFrom).toList();
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     @PutMapping(path="/games/{id}/gamepages")
-    public ResponseEntity<GamePageDto> createGamePages(
+    public ResponseEntity<GamePageDto> create(
         @PathVariable(name="id") Long gameItemId, 
         @RequestBody GamePageDto gamePageDto) {
         System.out.println("Running\n\n\n");
@@ -54,7 +55,7 @@ public class GamePageControllerImpl{
 
     @SuppressWarnings("rawtypes")
     @DeleteMapping(path="/games/{gameId}/gamepages/{gamePageId}")
-    public ResponseEntity deleteGame(
+    public ResponseEntity delete(
         @PathVariable(name="gameId") Long gameId,
         @PathVariable(name="gamePageId") Long gamePageId) {
             //Removing dependicies
@@ -67,7 +68,7 @@ public class GamePageControllerImpl{
     }
 
     @GetMapping(path="/gamepages/{id}")
-    public ResponseEntity<GamePageDto> findGame(@PathVariable Long id) {
+    public ResponseEntity<GamePageDto> getById(@PathVariable("id") Long id) {
         GamePageEntity gamePageEntity = gamePageService.find(id);
  
         if(gamePageEntity == null){
@@ -75,5 +76,5 @@ public class GamePageControllerImpl{
         }else{
             return new ResponseEntity<>(gamePageMapper.mapFrom(gamePageEntity), HttpStatus.FOUND);
         } 
-    }    
+    }
 }

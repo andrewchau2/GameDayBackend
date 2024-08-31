@@ -3,17 +3,16 @@ package com.fightbattle.gameday.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
-public interface GamePageController<A> {
+import com.fightbattle.gameday.pojo.dto.GamePageDto;
 
-    public ResponseEntity<List<A>> findGames();
+public interface GamePageController{
+    public ResponseEntity<List<GamePageDto>> getAll();
 
-    public ResponseEntity<A> createGame(@RequestBody A a);
+    public ResponseEntity<GamePageDto> create(Long gameItemId, GamePageDto gamePageDto);
 
     @SuppressWarnings("rawtypes")
-    public ResponseEntity deleteGame(@PathVariable("id") Long id);
+    public ResponseEntity delete(Long gameId,Long gamePageId);
 
-    public ResponseEntity<A> findGame(@PathVariable("id") Long id);
+    public ResponseEntity<GamePageDto> getById(Long id);
 }
