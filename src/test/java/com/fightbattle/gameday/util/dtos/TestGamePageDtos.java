@@ -16,7 +16,7 @@ public class TestGamePageDtos {
     @Autowired 
     GamePageMapper gMapper;
 
-    public GamePageDto CreateTestPageA(){
+    public GamePageDto createTestPageA(){
         GamePageEntity gamePageEntity = GamePageEntity.builder()
         .steamLink("https://store.steampowered.com/app/1676840/For_The_King_II/")
         .cdKeyLink("https://www.cdkeys.com/for-the-king-ii-pc-steam")
@@ -27,7 +27,7 @@ public class TestGamePageDtos {
     }
 
 
-    public GamePageDto CreateTestPageB(){
+    public GamePageDto createTestPageB(){
         GamePageEntity gamePageEntity = GamePageEntity.builder()
         .steamLink("https://store.steampowered.com/app/1217060/Gunfire_Reborn/")
         .cdKeyLink("https://www.cdkeys.com/gunfire-reborn-pc-steam")
@@ -37,7 +37,7 @@ public class TestGamePageDtos {
         return gMapper.mapFrom(gamePageEntity);
     }
 
-    public GamePageDto CreateTestPageNull(){
+    public GamePageDto createTestPageNull(){
         GamePageEntity gamePageEntity = GamePageEntity.builder()
         .build();
 

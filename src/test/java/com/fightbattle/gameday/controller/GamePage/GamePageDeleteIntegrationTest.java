@@ -54,7 +54,7 @@ public class GamePageDeleteIntegrationTest {
         GameItemEntity gameItem = createGame.createTestGameA();
         GameItemEntity createdGame = gameItemService.create(gameItem);
 
-        GamePageDto gamePageDto = createPages.CreateTestPageA();
+        GamePageDto gamePageDto = createPages.createTestPageA();
         String gamePageJson = objectMapper.writeValueAsString(gamePageDto);
         GamePageEntity gamePageEntity = gMapper.mapTo(gamePageDto);
         GamePageEntity output = gamePageService.create(gamePageEntity);

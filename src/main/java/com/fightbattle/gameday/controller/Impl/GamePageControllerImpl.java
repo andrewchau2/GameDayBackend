@@ -35,14 +35,13 @@ public class GamePageControllerImpl implements GamePageController{
     @GetMapping(path="/gamepages")
     public ResponseEntity<List<GamePageDto>> getAll() {
         List<GamePageDto> res = gamePageService.findAll().stream().map(gamePageMapper::mapFrom).toList();
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        return new ResponseEntity<>(res, HttpStatus.FOUND);
     }
 
     @PutMapping(path="/games/{id}/gamepages")
     public ResponseEntity<GamePageDto> create(
         @PathVariable(name="id") Long gameItemId, 
         @RequestBody GamePageDto gamePageDto) {
-        System.out.println("Running\n\n\n");
         GameItemEntity gameItemEntity = gameItemService.find(gameItemId);
 
         GamePageEntity res = gamePageMapper.mapTo(gamePageDto);

@@ -49,7 +49,7 @@ public class GamePageCreateIntegrationTest {
     public void testThatCreateTestPageAReturns200OkStatus() throws Exception{
         GameItemDto gameItemDto = testGames.createTestGameA();
         GameItemEntity created = gameItemService.create(gameItemMapper.mapTo(gameItemDto));
-        GamePageDto gamePageDto = testPages.CreateTestPageA();
+        GamePageDto gamePageDto = testPages.createTestPageA();
         String gamePageJson = objectMapper.writeValueAsString(gamePageDto);
         String url = "/games/" + created.getId().toString() + "/gamepages";
         mockMvc.perform(
@@ -66,7 +66,7 @@ public class GamePageCreateIntegrationTest {
     public void testThatCreateTestPageASuccessfullyCreated() throws Exception{
         GameItemDto gameItemDto = testGames.createTestGameA();
         GameItemEntity created = gameItemService.create(gameItemMapper.mapTo(gameItemDto));
-        GamePageDto gamePageDto = testPages.CreateTestPageA();
+        GamePageDto gamePageDto = testPages.createTestPageA();
         String gamePageJson = objectMapper.writeValueAsString(gamePageDto);
         String url = "/games/" + created.getId().toString() + "/gamepages";
         mockMvc.perform(
@@ -89,7 +89,7 @@ public class GamePageCreateIntegrationTest {
     public void testThatCreateTestPageBSuccessfullyCreated() throws Exception{
         GameItemDto gameItemDto = testGames.createTestGameA();
         GameItemEntity created = gameItemService.create(gameItemMapper.mapTo(gameItemDto));
-        GamePageDto gamePageDto = testPages.CreateTestPageB();
+        GamePageDto gamePageDto = testPages.createTestPageB();
         String gamePageJson = objectMapper.writeValueAsString(gamePageDto);
         String url = "/games/" + created.getId().toString() + "/gamepages";
 
@@ -113,7 +113,7 @@ public class GamePageCreateIntegrationTest {
     public void testThatCreateTestPageNullSuccessfullyCreated() throws Exception{
         GameItemDto gameItemDto = testGames.createTestGameA();
         GameItemEntity created = gameItemService.create(gameItemMapper.mapTo(gameItemDto));
-        GamePageDto gamePageDto = testPages.CreateTestPageNull();
+        GamePageDto gamePageDto = testPages.createTestPageNull();
         String gamePageJson = objectMapper.writeValueAsString(gamePageDto);
         String url = "/games/" + created.getId().toString() + "/gamepages";
 
