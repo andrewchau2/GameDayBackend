@@ -10,8 +10,6 @@ public interface DefaultService<A> {
 
     public void delete(Long id);
 
-    public A partialUpdate(Long id, A a);
-
     public A fullUpdate(A a);
 
     public A create(A a);

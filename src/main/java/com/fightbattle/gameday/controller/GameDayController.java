@@ -4,15 +4,15 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.fightbattle.gameday.pojo.dto.GameDayDto;
+import com.fightbattle.gameday.pojo.entity.GameDayEntity;
 
 public interface GameDayController {
-    public ResponseEntity<List<GameDayDto>> getAll();
+    public ResponseEntity<List<GameDayEntity>> getAll();
 
-    public ResponseEntity<GameDayDto> create(GameDayDto a);
+    public ResponseEntity<GameDayEntity> create(GameDayEntity a);
 
     @SuppressWarnings("rawtypes")
     public ResponseEntity delete(Long id);
 
-    public ResponseEntity<GameDayDto> getById(Long id);
+    public ResponseEntity<GameDayEntity> getById(Long id);
 }

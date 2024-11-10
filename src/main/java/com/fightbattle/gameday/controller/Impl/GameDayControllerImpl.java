@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fightbattle.gameday.controller.GameDayController;
-import com.fightbattle.gameday.mapper.GameDayMapper;
-import com.fightbattle.gameday.pojo.dto.GameDayDto;
 import com.fightbattle.gameday.pojo.entity.GameDayEntity;
 import com.fightbattle.gameday.service.GameDayService;
 
@@ -22,33 +20,30 @@ import com.fightbattle.gameday.service.GameDayService;
 public class GameDayControllerImpl implements GameDayController{
 
     private GameDayService gameDayTrackerService;
-    private GameDayMapper gameDayTrackerMapper;
 
     @Autowired
-    public GameDayControllerImpl(GameDayService gameDayTrackerService,GameDayMapper gameDayTrackerMapper){
-        this.gameDayTrackerMapper = gameDayTrackerMapper;
+    public GameDayControllerImpl(GameDayService gameDayTrackerService){
         this.gameDayTrackerService = gameDayTrackerService;
     }
 
 
     @GetMapping(path="/gamedays")
-    public ResponseEntity<List<GameDayDto>> getAll() {
+    public ResponseEntity<List<GameDayEntity>> getAll() {
 
         List<GameDayEntity> res = gameDayTrackerService.findAll();
 
-        return new ResponseEntity<>(res.stream().map(gameDayTrackerMapper::mapFrom).toList(), HttpStatus.FOUND);
+        return new ResponseEntity<>(res.stream().toList(), HttpStatus.FOUND);
     }
 
-    public ResponseEntity<GameDayDto> getById(Long id) {
+    public ResponseEntity<GameDayEntity> getById(Long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findGame'");
     }
 
     @PutMapping(path="/gamedays")
-    public ResponseEntity<GameDayDto> create(@RequestBody GameDayDto gameDayTrackerDto) {
-        GameDayEntity convert = gameDayTrackerMapper.mapTo(gameDayTrackerDto);
-        GameDayEntity res = gameDayTrackerService.create(convert);
-        return new ResponseEntity<>(gameDayTrackerMapper.mapFrom(res), HttpStatus.CREATED);
+    public ResponseEntity<GameDayEntity> create(@RequestBody GameDayEntity gameDayTracker) {
+        GameDayEntity res = gameDayTrackerService.create(gameDayTracker);
+        return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
 
     

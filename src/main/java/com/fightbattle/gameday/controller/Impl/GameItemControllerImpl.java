@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fightbattle.gameday.controller.GameItemController;
-import com.fightbattle.gameday.mapper.GameItemMapper;
-import com.fightbattle.gameday.pojo.dto.GameItemDto;
 import com.fightbattle.gameday.pojo.entity.GameItemEntity;
 import com.fightbattle.gameday.service.GameItemService;
 
@@ -23,27 +20,24 @@ import com.fightbattle.gameday.service.GameItemService;
 public class GameItemControllerImpl implements GameItemController{
     
     private GameItemService gameItemService;
-    private GameItemMapper modelMapper;
 
 
     @Autowired
-    public GameItemControllerImpl(GameItemService gameItemService,  GameItemMapper modelMapper){
+    public GameItemControllerImpl(GameItemService gameItemService){
         this.gameItemService = gameItemService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping(path = "/games")
-    public ResponseEntity<List<GameItemDto>> getAll(){
+    public ResponseEntity<List<GameItemEntity>> getAll(){
         List<GameItemEntity> res = gameItemService.findAll();
     
-        return new ResponseEntity<>(res.stream().map(modelMapper::mapFrom).toList(), HttpStatus.FOUND);
+        return new ResponseEntity<>(res.stream().toList(), HttpStatus.FOUND);
     }
 
     @PutMapping(path = "/games")
-    public ResponseEntity<GameItemDto> create(@RequestBody GameItemDto gameItemDto){
-        GameItemEntity gameItemEntity = modelMapper.mapTo(gameItemDto);
+    public ResponseEntity<GameItemEntity> create(@RequestBody GameItemEntity gameItemEntity){
         GameItemEntity created = gameItemService.create(gameItemEntity);
-        return new ResponseEntity<>(modelMapper.mapFrom(created), HttpStatus.CREATED);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
 
@@ -55,14 +49,13 @@ public class GameItemControllerImpl implements GameItemController{
     }
 
     @GetMapping(path = "/games/{id}")
-    public ResponseEntity<GameItemDto> getById(@PathVariable("id") Long id){
+    public ResponseEntity<GameItemEntity> getById(@PathVariable("id") Long id){
         GameItemEntity gameItemEntity = gameItemService.find(id);
         
         if(gameItemEntity == null){
             return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
         }
-        GameItemDto result = modelMapper.mapFrom(gameItemEntity);
-        return new ResponseEntity<>(result, HttpStatus.FOUND);
+        return new ResponseEntity<>(gameItemEntity, HttpStatus.FOUND);
     }
 
 }

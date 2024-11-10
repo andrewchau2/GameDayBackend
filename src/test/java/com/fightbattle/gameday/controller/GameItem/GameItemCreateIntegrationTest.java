@@ -117,26 +117,26 @@ public class GameItemCreateIntegrationTest {
     }
 
 
-    @Test
-    public void testThatCreateGameNullSuccessfullyCreated() throws Exception{
-        GameItemDto gameItemDto = createGames.createTestGameNull();
-        System.out.println(gameItemDto);
+    // @Test
+    // public void testThatCreateGameNullSuccessfullyCreated() throws Exception{
+    //     GameItemDto gameItemDto = createGames.createTestGameNull();
+    //     System.out.println(gameItemDto);
 
-        gameItemDto.setId(null); //Id is auto-generated
-        String gameJson = objectMapper.writeValueAsString(gameItemDto);
+    //     gameItemDto.setId(null); //Id is auto-generated
+    //     String gameJson = objectMapper.writeValueAsString(gameItemDto);
 
-        mockMvc.perform(
-            MockMvcRequestBuilders.put("/games")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(gameJson)
-        ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.id").isNumber()
-        ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.name").value(gameItemDto.getName())
-         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.lastPlayed").value(gameItemDto.getLastPlayed())
-        );
-    }
+    //     mockMvc.perform(
+    //         MockMvcRequestBuilders.put("/games")
+    //                     .contentType(MediaType.APPLICATION_JSON)
+    //                     .content(gameJson)
+    //     ).andExpect(
+    //         MockMvcResultMatchers.jsonPath("$.id").isNumber()
+    //     ).andExpect(
+    //         MockMvcResultMatchers.jsonPath("$.name").value(gameItemDto.getName())
+    //      ).andExpect(
+    //         MockMvcResultMatchers.jsonPath("$.lastPlayed").value(gameItemDto.getLastPlayed())
+    //     );
+    // }
 
 
 

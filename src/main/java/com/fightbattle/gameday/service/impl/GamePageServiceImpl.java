@@ -13,14 +13,8 @@ import com.fightbattle.gameday.service.GamePageService;
 @Service
 public class GamePageServiceImpl implements GamePageService{
 
-    private GamePageRepository gamePageRepository;
-
-
     @Autowired
-    public GamePageServiceImpl(GamePageRepository gamePageRepository){
-        this.gamePageRepository = gamePageRepository;
-    }
-
+    private GamePageRepository gamePageRepository;
 
     @Override
     public GamePageEntity find(Long id) {
@@ -39,14 +33,6 @@ public class GamePageServiceImpl implements GamePageService{
     public void delete(Long id) {
         gamePageRepository.deleteById(id);
     }
-
-
-    @Override
-    public GamePageEntity partialUpdate(Long id, GamePageEntity gamePageEntity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'partialUpdate'");
-    }
-
 
     @Override
     public GamePageEntity fullUpdate(GamePageEntity gamePageEntity) {

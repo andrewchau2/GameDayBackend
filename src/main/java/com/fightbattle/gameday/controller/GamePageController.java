@@ -4,15 +4,16 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.fightbattle.gameday.pojo.dto.GamePageDto;
+import com.fightbattle.gameday.pojo.entity.GameItemEntity;
+import com.fightbattle.gameday.pojo.entity.GamePageEntity;
 
 public interface GamePageController{
-    public ResponseEntity<List<GamePageDto>> getAll();
+    public ResponseEntity<List<GamePageEntity>> getAll();
 
-    public ResponseEntity<GamePageDto> create(Long gameItemId, GamePageDto gamePageDto);
+    //public ResponseEntity<GamePageEntity> create(Long gameItemId, GamePageEntity gamePage);
 
     @SuppressWarnings("rawtypes")
     public ResponseEntity delete(Long gameId,Long gamePageId);
 
-    public ResponseEntity<GamePageDto> getById(Long id);
+    public ResponseEntity<GamePageEntity> getById(Long id);
 }

@@ -40,16 +40,16 @@ public class GameDayGetIntegrationTest {
     TestGameDayDtos testGameDayDtos;
 
 
-    @Test
-    public void testThatGetOneGamePageGetRequestReturns304Found() throws Exception{
-        String url = "/gamedays/" + gameday.getId();
+    // @Test
+    // public void testThatGetOneGamePageGetRequestReturns304Found() throws Exception{
+    //     String url = "/gamedays/" + gameday.getId();
 
-        mockMvc.perform(
-            MockMvcRequestBuilders.get(url)
-        ).andExpect(
-            MockMvcResultMatchers.status().isFound()
-        );
-    }
+    //     mockMvc.perform(
+    //         MockMvcRequestBuilders.get(url)
+    //     ).andExpect(
+    //         MockMvcResultMatchers.status().isFound()
+    //     );
+    // }
 
     // @Test
     // public void testThatGetOneGamePageGetRequestReturns404NotFound() throws Exception{

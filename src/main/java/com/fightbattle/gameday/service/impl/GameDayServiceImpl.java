@@ -7,51 +7,60 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fightbattle.gameday.pojo.entity.GameDayEntity;
+import com.fightbattle.gameday.pojo.entity.GameItemEntity;
 import com.fightbattle.gameday.repository.GameDayRepository;
+import com.fightbattle.gameday.repository.GameItemRepository;
 import com.fightbattle.gameday.service.GameDayService;
 
 @Service
 public class GameDayServiceImpl implements GameDayService{
 
-    private GameDayRepository gameDayTrackerRepository;
+    @Autowired
+    private GameDayRepository gameDayRepo;
 
     @Autowired
-    public GameDayServiceImpl(GameDayRepository gameDayTrackerRepository){
-        this.gameDayTrackerRepository = gameDayTrackerRepository;
-    }
+    private GameItemRepository gameItemRepo;
 
 
     @Override
     public GameDayEntity find(Long id) {
-        Optional<GameDayEntity> res = gameDayTrackerRepository.findById(id);
-        
+        Optional<GameDayEntity> res = gameDayRepo.findById(id);
         return res.isPresent() ? res.get() : null;
     }
 
     @Override
     public List<GameDayEntity> findAll() {
-        return gameDayTrackerRepository.findAll();
+        return gameDayRepo.findAll();
     }
 
     @Override
     public void delete(Long id) {
-        gameDayTrackerRepository.deleteById(id);
+        gameDayRepo.deleteById(id);
     }
-
-    @Override
-    public GameDayEntity partialUpdate(Long id, GameDayEntity gameDayTrackerEntity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'partialUpdate'");
-    }
-
+    
     @Override
     public GameDayEntity fullUpdate(GameDayEntity gameDayTrackerEntity) {
-        return gameDayTrackerRepository.save(gameDayTrackerEntity);
+        return gameDayRepo.save(gameDayTrackerEntity);
     }
 
     @Override
     public GameDayEntity create(GameDayEntity gameDayTrackerEntity) {
-        return gameDayTrackerRepository.save(gameDayTrackerEntity);
+        return gameDayRepo.save(gameDayTrackerEntity);
     }
+
+    // public GameItemEntity addToWishList(Long gameDayId, GameItem gameItemEntity)throws Exception{
+    //     Optional<GameDayEntity> gameDayFound = gameDayRepo.findById(gameDayId);
+
+    //     if(gameDayFound.isEmpty()){
+    //         throw new Exception("GameDay id is not found");
+    //     }
+
+    //     GameDayEntity gameDay = gameDayFound.get();
+    //     gameDay.getRecentlyPlayed().add(gameItemEntity)
+        
+
+        
+    //     return null;
+    // }
     
 }
