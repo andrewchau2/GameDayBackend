@@ -14,18 +14,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.fightbattle.gameday.mapper.GameDayMapper;
-import com.fightbattle.gameday.pojo.dto.GamePageDto;
 import com.fightbattle.gameday.pojo.entity.GameItemEntity;
 import com.fightbattle.gameday.pojo.entity.GamePageEntity;
 import com.fightbattle.gameday.service.GameDayService;
-import com.fightbattle.gameday.util.dtos.TestGameDayDtos;
+import com.fightbattle.gameday.util.entities.TestGameDayEntities;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
 public class GameDayGetIntegrationTest {
+
 
     @Autowired
     MockMvc mockMvc;
@@ -34,14 +33,12 @@ public class GameDayGetIntegrationTest {
     GameDayService gameDayService;
 
     @Autowired
-    GameDayMapper gameDayMapper;
-
-    @Autowired
-    TestGameDayDtos testGameDayDtos;
+    TestGameDayEntities testGameDay;
 
 
     // @Test
     // public void testThatGetOneGamePageGetRequestReturns304Found() throws Exception{
+
     //     String url = "/gamedays/" + gameday.getId();
 
     //     mockMvc.perform(

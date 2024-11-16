@@ -14,11 +14,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.fightbattle.gameday.mapper.GameItemMapper;
-import com.fightbattle.gameday.pojo.dto.GameItemDto;
 import com.fightbattle.gameday.pojo.entity.GameItemEntity;
 import com.fightbattle.gameday.service.GameItemService;
-import com.fightbattle.gameday.util.dtos.TestGameItemDtos;
+import com.fightbattle.gameday.util.entities.TestGameItemEntities;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -30,18 +28,14 @@ public class GameItemGetIntegrationTest {
     private MockMvc mockMvc;
 
     @Autowired
-    TestGameItemDtos create;
+    TestGameItemEntities create;
 
     @Autowired
     GameItemService gameService;
 
-    @Autowired
-    GameItemMapper gameItemMapper;
-
     @Test
     public void testThatGetOneGameItemGetRequestReturns304Found() throws Exception{
-        GameItemEntity gameItem = gameService.create(
-            gameItemMapper.mapTo(create.createTestGameA()));
+        GameItemEntity gameItem = gameService.create(create.createTestGameA());
         String url = "/games/" + gameItem.getId();
 
         mockMvc.perform(
@@ -76,8 +70,7 @@ public class GameItemGetIntegrationTest {
     @Test
     public void testThatGamesListWithItemSuccessfullyFound() throws Exception{
 
-        GameItemEntity gameItem = gameService.create(
-            gameItemMapper.mapTo(create.createTestGameA()));
+        GameItemEntity gameItem = gameService.create(create.createTestGameA());
         
         String url = "/games";
 
@@ -99,13 +92,13 @@ public class GameItemGetIntegrationTest {
 
     @Test
     public void testThatGamesListWithItemGetRequestReturns204Found() throws Exception{
-        List<GameItemDto> insertList = List.of(
+        List<GameItemEntity> insertList = List.of(
             create.createTestGameA(),
             create.createTestGameB(),
             create.createTestGameC()
         );
-        for (GameItemDto gameItemDto : insertList) {
-            gameService.create(gameItemMapper.mapTo(gameItemDto));
+        for (GameItemEntity gameItem : insertList) {
+            gameService.create(gameItem);
         }
         String url = "/games";
 

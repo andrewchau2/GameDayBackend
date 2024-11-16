@@ -14,14 +14,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.fightbattle.gameday.mapper.GamePageMapper;
-import com.fightbattle.gameday.pojo.dto.GamePageDto;
 import com.fightbattle.gameday.pojo.entity.GameItemEntity;
 import com.fightbattle.gameday.pojo.entity.GamePageEntity;
 import com.fightbattle.gameday.service.GameItemService;
 import com.fightbattle.gameday.service.GamePageService;
-import com.fightbattle.gameday.util.dtos.TestGamePageDtos;
 import com.fightbattle.gameday.util.entities.TestGameItemEntities;
+import com.fightbattle.gameday.util.entities.TestGamePageEntities;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -37,10 +35,7 @@ public class GamePageGetIntegrationTest {
     private GamePageService gamePageService;
 
     @Autowired
-    private GamePageMapper gamePageMapper;
-
-    @Autowired
-    private TestGamePageDtos create;
+    private TestGamePageEntities create;
 
     @Autowired
     private TestGameItemEntities gameCreate;
@@ -52,7 +47,7 @@ public class GamePageGetIntegrationTest {
     public void testThatGetOneGamePageGetRequestReturns304Found() throws Exception{
         
         GameItemEntity gameItem = gameCreate.createTestGameA();
-        GamePageEntity gamePage =  gamePageMapper.mapTo(create.createTestPageA());
+        GamePageEntity gamePage =  create.createTestPageA();
         gameItem.setGamePage(gamePage);
         gamePage.setGameItemEntity(gameItem);
         
@@ -93,8 +88,7 @@ public class GamePageGetIntegrationTest {
     @Test
     public void testThatGamesListWithItemSuccessfullyFound() throws Exception{
 
-        GamePageEntity gamePage = gamePageService.create(
-            gamePageMapper.mapTo(create.createTestPageA()));
+        GamePageEntity gamePage = gamePageService.create(create.createTestPageA());
             
         
         String url = "/gamepages";
@@ -117,12 +111,12 @@ public class GamePageGetIntegrationTest {
 
     @Test
     public void testThatGamesListWithItemGetRequestReturns204Found() throws Exception{
-        List<GamePageDto> insertList = List.of(
+        List<GamePageEntity> insertList = List.of(
             create.createTestPageA(),
             create.createTestPageB()
         );
-        for (GamePageDto gamePage : insertList) {
-            gamePageService.create(gamePageMapper.mapTo(gamePage));
+        for (GamePageEntity gamePage : insertList) {
+            gamePageService.create(gamePage);
         }
         String url = "/gamepages";
 

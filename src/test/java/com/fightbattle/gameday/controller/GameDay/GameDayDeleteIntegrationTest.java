@@ -1,7 +1,5 @@
 package com.fightbattle.gameday.controller.GameDay;
 
-import javax.print.attribute.standard.Media;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +13,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fightbattle.gameday.mapper.GameDayMapper;
-import com.fightbattle.gameday.pojo.dto.GameDayDto;
 import com.fightbattle.gameday.pojo.entity.GameDayEntity;
 import com.fightbattle.gameday.service.GameDayService;
-import com.fightbattle.gameday.util.dtos.TestGameDayDtos;
+import com.fightbattle.gameday.util.entities.TestGameDayEntities;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -34,21 +30,17 @@ public class GameDayDeleteIntegrationTest {
     ObjectMapper objectMapper;
 
     @Autowired
-    TestGameDayDtos create;
+    TestGameDayEntities create;
     
     @Autowired
     GameDayService gameDayService;
 
-    @Autowired
-    GameDayMapper gMapper;
-
     @Test
     public void testThatGameDayDeleteExistsAndRequestReturns204NotFound() throws Exception{
-        GameDayDto gameDayDto = create.createTestGameDayItemA();
+        GameDayEntity gameDay = create.createTestGameDayItemA();
         
-        String gameDayJson = objectMapper.writeValueAsString(gameDayDto);
-        GameDayEntity gameDayEntity = gMapper.mapTo(gameDayDto);
-        GameDayEntity output = gameDayService.create(gameDayEntity);
+        String gameDayJson = objectMapper.writeValueAsString(gameDay);
+        GameDayEntity output = gameDayService.create(gameDay);
         String url = "/gamedays/" + output.getId();
         
         mockMvc.perform(

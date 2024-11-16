@@ -13,14 +13,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fightbattle.gameday.mapper.GamePageMapper;
-import com.fightbattle.gameday.pojo.dto.GamePageDto;
 import com.fightbattle.gameday.pojo.entity.GameItemEntity;
 import com.fightbattle.gameday.pojo.entity.GamePageEntity;
 import com.fightbattle.gameday.service.GameItemService;
 import com.fightbattle.gameday.service.GamePageService;
-import com.fightbattle.gameday.util.dtos.TestGamePageDtos;
 import com.fightbattle.gameday.util.entities.TestGameItemEntities;
+import com.fightbattle.gameday.util.entities.TestGamePageEntities;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -35,13 +33,10 @@ public class GamePageDeleteIntegrationTest {
     ObjectMapper objectMapper;
 
     @Autowired
-    GamePageMapper gMapper;
-
-    @Autowired
     GamePageService gamePageService;
 
     @Autowired
-    TestGamePageDtos createPages;
+    TestGamePageEntities createPages;
 
     @Autowired
     TestGameItemEntities createGame;
@@ -54,10 +49,9 @@ public class GamePageDeleteIntegrationTest {
         GameItemEntity gameItem = createGame.createTestGameA();
         GameItemEntity createdGame = gameItemService.create(gameItem);
 
-        GamePageDto gamePageDto = createPages.createTestPageA();
-        String gamePageJson = objectMapper.writeValueAsString(gamePageDto);
-        GamePageEntity gamePageEntity = gMapper.mapTo(gamePageDto);
-        GamePageEntity output = gamePageService.create(gamePageEntity);
+        GamePageEntity gamePage = createPages.createTestPageA();
+        String gamePageJson = objectMapper.writeValueAsString(gamePage);
+        GamePageEntity output = gamePageService.create(gamePage);
         String url = "/games/" + createdGame.getId() + "/gamepages/" + output.getId();
         
         mockMvc.perform(

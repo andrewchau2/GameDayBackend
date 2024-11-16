@@ -33,18 +33,18 @@ public class GamePageControllerImpl implements GamePageController{
         return new ResponseEntity<>(res, HttpStatus.FOUND);
     }
 
-    // @PutMapping(path="/games/{id}/gamepages")
-    // public ResponseEntity<GamePageEntity> create(
-    //     @PathVariable(name="id") Long gameItemId, 
-    //     @RequestBody GamePageEntity gamePage) {
-    //     GameItemEntity gameItemEntity = gameItemService.find(gameItemId);
+    @PutMapping(path="/games/{id}/gamepages")
+    public ResponseEntity<GamePageEntity> create(
+        @PathVariable(name="id") Long gameItemId, 
+        @RequestBody GamePageEntity gamePage) {
+        GameItemEntity gameItemEntity = gameItemService.find(gameItemId);
 
-    //     GamePageEntity created = gamePageService.create(gamePage);
-    //     gameItemEntity.setGamePage(created);
-    //     gameItemService.fullUpdate(gameItemEntity);
+        GamePageEntity created = gamePageService.create(gamePage);
+        gameItemEntity.setGamePage(created);
+        gameItemService.fullUpdate(gameItemEntity);
         
-    //     return new ResponseEntity<>(created, HttpStatus.CREATED);
-    // }
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
+    }
 
     @SuppressWarnings("rawtypes")
     @DeleteMapping(path="/games/{gameId}/gamepages/{gamePageId}")
