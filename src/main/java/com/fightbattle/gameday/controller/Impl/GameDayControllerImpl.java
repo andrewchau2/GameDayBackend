@@ -13,52 +13,49 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fightbattle.gameday.controller.GamePageController;
-import com.fightbattle.gameday.mapper.GameDayMapper;
-import com.fightbattle.gameday.pojo.dto.GameDayDto;
+import com.fightbattle.gameday.controller.GameDayController;
 import com.fightbattle.gameday.pojo.entity.GameDayEntity;
 import com.fightbattle.gameday.service.GameDayService;
 
 @RestController
-public class GameDayControllerImpl{
-
-    private GameDayService gameDayTrackerService;
-    private GameDayMapper gameDayTrackerMapper;
+public class GameDayControllerImpl implements GameDayController{
 
     @Autowired
-    public GameDayControllerImpl(GameDayService gameDayTrackerService,GameDayMapper gameDayTrackerMapper){
-        this.gameDayTrackerMapper = gameDayTrackerMapper;
-        this.gameDayTrackerService = gameDayTrackerService;
-    }
-
+    private GameDayService gameDayService;
 
     @GetMapping(path="/gamedays")
-    public ResponseEntity<List<GameDayDto>> findGames() {
+    public ResponseEntity<List<GameDayEntity>> getAll() {
 
-        List<GameDayEntity> res = gameDayTrackerService.findAll();
-
-        return new ResponseEntity<>(res.stream().map(gameDayTrackerMapper::mapFrom).toList(), HttpStatus.FOUND);
+        List<GameDayEntity> res = gameDayService.findAll();
+        return new ResponseEntity<>(res.stream().toList(), HttpStatus.FOUND);
     }
 
+    @GetMapping(path="/gamedays/{id}")
+    public ResponseEntity<GameDayEntity> getById(@PathVariable(name="id") Long id) {
+        GameDayEntity res = gameDayService.find(id);
+        return res == null ? new ResponseEntity<>(null, HttpStatus.NOT_FOUND) : new ResponseEntity<>(res, HttpStatus.FOUND);
+    }
 
     @PutMapping(path="/gamedays")
-    public ResponseEntity<GameDayDto> createGame(@RequestBody GameDayDto gameDayTrackerDto) {
-        GameDayEntity convert = gameDayTrackerMapper.mapTo(gameDayTrackerDto);
-        GameDayEntity res = gameDayTrackerService.create(convert);
-        return new ResponseEntity<>(gameDayTrackerMapper.mapFrom(res), HttpStatus.CREATED);
+    public ResponseEntity<GameDayEntity> create(@RequestBody GameDayEntity gameDayTracker) {
+        GameDayEntity res = gameDayService.create(gameDayTracker);
+        return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
 
-    
-    @SuppressWarnings("rawtypes")
-    @DeleteMapping(path="gamedays/{id}")
-    public ResponseEntity deleteGame(@PathVariable Long id) {
-        gameDayTrackerService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @PostMapping(path="/gamedays/{id}")
+    public ResponseEntity<GameDayEntity> fullUpdate(@RequestBody GameDayEntity newGameDay, @PathVariable(name="id") Long id){
+        if(gameDayService.find(id) == null){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        
+        GameDayEntity updated = gameDayService.fullUpdate(newGameDay);
+        return new ResponseEntity<>(updated, HttpStatus.NOT_FOUND);
     }
 
-    public ResponseEntity<GameDayDto> findGame(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findGame'");
+    @DeleteMapping(path="/gamedays/{id}")
+    public ResponseEntity<GameDayEntity> delete(@PathVariable(name="id") Long id) {
+        gameDayService.delete(id);
+        return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
     }
     
 }

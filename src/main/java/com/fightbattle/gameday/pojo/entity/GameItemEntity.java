@@ -1,27 +1,17 @@
 package com.fightbattle.gameday.pojo.entity;
 
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Set;
-
-import javax.security.auth.Subject;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -57,5 +47,9 @@ public class GameItemEntity {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "recentlyPlayed")
-    private Set<GameDayEntity> gamedays = new HashSet<>();
+    private Set<GameDayEntity> recentlyPlayed = new LinkedHashSet<>();
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "wishlist")
+    private Set<GameDayEntity> wishList = new LinkedHashSet<>();
 }

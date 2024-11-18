@@ -1,4 +1,4 @@
-package com.fightbattle.gameday.controller;
+package com.fightbattle.gameday.controller.GameDay;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,28 +13,28 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fightbattle.gameday.pojo.dto.GameDayDto;
-import com.fightbattle.gameday.util.CreateTestGameDayItems;
+import com.fightbattle.gameday.pojo.entity.GameDayEntity;
+import com.fightbattle.gameday.util.entities.TestGameDayEntities;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
-public class GameDayControllerIntegrationTest {
+public class GameDayCreateIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
     @Autowired
-    CreateTestGameDayItems gameDayItems;
+    private TestGameDayEntities create;
 
     @Test
     public void testThatGameDayPutRequestReturns200StatusOk() throws Exception{
-        GameDayDto gameDayDto = gameDayItems.createTestGameDayItemA();
-        String gameDayJson = objectMapper.writeValueAsString(gameDayDto);
+        GameDayEntity gameDay = create.createTestGameDayItemA();
+        String gameDayJson = objectMapper.writeValueAsString(gameDay);
 
         mockMvc.perform(
         MockMvcRequestBuilders.put("/gamedays")
@@ -47,8 +47,8 @@ public class GameDayControllerIntegrationTest {
 
     @Test
     public void testThatGameDayASuccessfullyCreated() throws Exception{
-        GameDayDto gameDayDto = gameDayItems.createTestGameDayItemA();
-        String gameDayJson = objectMapper.writeValueAsString(gameDayDto);
+        GameDayEntity gameDay = create.createTestGameDayItemA();
+        String gameDayJson = objectMapper.writeValueAsString(gameDay);
 
         mockMvc.perform(
             MockMvcRequestBuilders.put("/gamedays")
@@ -57,19 +57,19 @@ public class GameDayControllerIntegrationTest {
         ).andExpect(
             MockMvcResultMatchers.jsonPath("$.id").isNumber()
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.serverName").value(gameDayDto.getServerName())
+            MockMvcResultMatchers.jsonPath("$.serverName").value(gameDay.getServerName())
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.description").value(gameDayDto.getDescription())
+            MockMvcResultMatchers.jsonPath("$.description").value(gameDay.getDescription())
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.nextGameDay").value(gameDayDto.getNextGameDay())
+            MockMvcResultMatchers.jsonPath("$.nextGameDay").value(gameDay.getNextGameDay())
         );
     }
 
 
     @Test
     public void testThatGameDayBSuccessfullyCreated() throws Exception{
-        GameDayDto gameDayDto = gameDayItems.createTestGameDayItemA();
-        String gameDayJson = objectMapper.writeValueAsString(gameDayDto);
+        GameDayEntity gameDay = create.createTestGameDayItemA();
+        String gameDayJson = objectMapper.writeValueAsString(gameDay);
 
         mockMvc.perform(
             MockMvcRequestBuilders.put("/gamedays")
@@ -78,18 +78,18 @@ public class GameDayControllerIntegrationTest {
         ).andExpect(
             MockMvcResultMatchers.jsonPath("$.id").isNumber()
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.serverName").value(gameDayDto.getServerName())
+            MockMvcResultMatchers.jsonPath("$.serverName").value(gameDay.getServerName())
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.description").value(gameDayDto.getDescription())
+            MockMvcResultMatchers.jsonPath("$.description").value(gameDay.getDescription())
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.nextGameDay").value(gameDayDto.getNextGameDay())
+            MockMvcResultMatchers.jsonPath("$.nextGameDay").value(gameDay.getNextGameDay())
         );
     }
 
     @Test
     public void testThatGameDayNullSuccessfullyCreated() throws Exception{
-        GameDayDto gameDayDto = gameDayItems.createTestGameDayItemNull();
-        String gameDayJson = objectMapper.writeValueAsString(gameDayDto);
+        GameDayEntity gameDay = create.createTestGameDayItemNull();
+        String gameDayJson = objectMapper.writeValueAsString(gameDay);
 
         mockMvc.perform(
             MockMvcRequestBuilders.put("/gamedays")
@@ -98,11 +98,11 @@ public class GameDayControllerIntegrationTest {
         ).andExpect(
             MockMvcResultMatchers.jsonPath("$.id").isNumber()
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.serverName").value(gameDayDto.getServerName())
+            MockMvcResultMatchers.jsonPath("$.serverName").value(gameDay.getServerName())
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.description").value(gameDayDto.getDescription())
+            MockMvcResultMatchers.jsonPath("$.description").value(gameDay.getDescription())
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.nextGameDay").value(gameDayDto.getNextGameDay())
+            MockMvcResultMatchers.jsonPath("$.nextGameDay").value(gameDay.getNextGameDay())
         );
     }
 }

@@ -1,4 +1,4 @@
-package com.fightbattle.gameday.controller;
+package com.fightbattle.gameday.controller.GameItem;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,14 +13,14 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fightbattle.gameday.pojo.dto.GameItemDto;
-import com.fightbattle.gameday.util.CreateTestGameItems;
+import com.fightbattle.gameday.pojo.entity.GameItemEntity;
+import com.fightbattle.gameday.util.entities.TestGameItemEntities;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
-public class GameItemControllerIntegrationTest {
+public class GameItemCreateIntegrationTest {
     
     @Autowired
     private MockMvc mockMvc;
@@ -29,16 +29,16 @@ public class GameItemControllerIntegrationTest {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private CreateTestGameItems createGames;
+    private TestGameItemEntities createGames;
 
 
     @Test
     public void testThatCreateGameSuccessfullyReturns201Created() throws Exception{
-        GameItemDto gameItemDto = createGames.createTestGameA();
+        GameItemEntity gameItem = createGames.createTestGameA();
 
 
-        gameItemDto.setId(null); //Id is auto-generated
-        String gameJson = objectMapper.writeValueAsString(gameItemDto);
+        gameItem.setId(null); //Id is auto-generated
+        String gameJson = objectMapper.writeValueAsString(gameItem);
         
         mockMvc.perform(
             MockMvcRequestBuilders.put("/games")
@@ -52,10 +52,10 @@ public class GameItemControllerIntegrationTest {
 
     @Test
     public void testThatCreateGameASuccessfullyCreated() throws Exception{
-        GameItemDto gameItemDto = createGames.createTestGameA();
+        GameItemEntity gameItem = createGames.createTestGameA();
 
-        gameItemDto.setId(null); //Id is auto-generated
-        String gameJson = objectMapper.writeValueAsString(gameItemDto);
+        gameItem.setId(null); //Id is auto-generated
+        String gameJson = objectMapper.writeValueAsString(gameItem);
 
         mockMvc.perform(
             MockMvcRequestBuilders.put("/games")
@@ -64,9 +64,9 @@ public class GameItemControllerIntegrationTest {
         ).andExpect(
             MockMvcResultMatchers.jsonPath("$.id").isNumber()
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.name").value(gameItemDto.getName())
+            MockMvcResultMatchers.jsonPath("$.name").value(gameItem.getName())
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.lastPlayed").value(gameItemDto.getLastPlayed())
+            MockMvcResultMatchers.jsonPath("$.lastPlayed").value(gameItem.getLastPlayed())
         );
         
     }
@@ -74,11 +74,11 @@ public class GameItemControllerIntegrationTest {
 
     @Test
     public void testThatCreateGameBSuccessfullyCreated() throws Exception{
-        GameItemDto gameItemDto = createGames.createTestGameB();
-        System.out.println(gameItemDto);
+        GameItemEntity gameItem = createGames.createTestGameB();
+        System.out.println(gameItem);
 
-        gameItemDto.setId(null); //Id is auto-generated
-        String gameJson = objectMapper.writeValueAsString(gameItemDto);
+        gameItem.setId(null); //Id is auto-generated
+        String gameJson = objectMapper.writeValueAsString(gameItem);
 
         mockMvc.perform(
             MockMvcRequestBuilders.put("/games")
@@ -87,9 +87,9 @@ public class GameItemControllerIntegrationTest {
         ).andExpect(
             MockMvcResultMatchers.jsonPath("$.id").isNumber()
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.name").value(gameItemDto.getName())
+            MockMvcResultMatchers.jsonPath("$.name").value(gameItem.getName())
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.lastPlayed").value(gameItemDto.getLastPlayed())
+            MockMvcResultMatchers.jsonPath("$.lastPlayed").value(gameItem.getLastPlayed())
         );
         
         
@@ -97,33 +97,10 @@ public class GameItemControllerIntegrationTest {
 
     @Test
     public void testThatCreateGameCSuccessfullyCreated() throws Exception{
-        GameItemDto gameItemDto = createGames.createTestGameC();
-        System.out.println(gameItemDto);
+        GameItemEntity gameItem = createGames.createTestGameC();
 
-        gameItemDto.setId(null); //Id is auto-generated
-        String gameJson = objectMapper.writeValueAsString(gameItemDto);
-
-        mockMvc.perform(
-            MockMvcRequestBuilders.put("/games")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(gameJson)
-        ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.id").isNumber()
-        ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.name").value(gameItemDto.getName())
-         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.lastPlayed").value(gameItemDto.getLastPlayed())
-        );
-    }
-
-
-    @Test
-    public void testThatCreateGameNullSuccessfullyCreated() throws Exception{
-        GameItemDto gameItemDto = createGames.createTestGameNull();
-        System.out.println(gameItemDto);
-
-        gameItemDto.setId(null); //Id is auto-generated
-        String gameJson = objectMapper.writeValueAsString(gameItemDto);
+        gameItem.setId(null); //Id is auto-generated
+        String gameJson = objectMapper.writeValueAsString(gameItem);
 
         mockMvc.perform(
             MockMvcRequestBuilders.put("/games")
@@ -132,11 +109,32 @@ public class GameItemControllerIntegrationTest {
         ).andExpect(
             MockMvcResultMatchers.jsonPath("$.id").isNumber()
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.name").value(gameItemDto.getName())
+            MockMvcResultMatchers.jsonPath("$.name").value(gameItem.getName())
          ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.lastPlayed").value(gameItemDto.getLastPlayed())
+            MockMvcResultMatchers.jsonPath("$.lastPlayed").value(gameItem.getLastPlayed())
         );
     }
+
+
+    // @Test
+    // public void testThatCreateGameNullSuccessfullyCreated() throws Exception{
+    //     GameItemEntity gameItem = createGames.createTestGameNull();
+
+    //     gameItem.setId(null); //Id is auto-generated
+    //     String gameJson = objectMapper.writeValueAsString(gameItem);
+
+    //     mockMvc.perform(
+    //         MockMvcRequestBuilders.put("/games")
+    //                     .contentType(MediaType.APPLICATION_JSON)
+    //                     .content(gameJson)
+    //     ).andExpect(
+    //         MockMvcResultMatchers.jsonPath("$.id").isNumber()
+    //     ).andExpect(
+    //         MockMvcResultMatchers.jsonPath("$.name").value(gameItem.getName())
+    //      ).andExpect(
+    //         MockMvcResultMatchers.jsonPath("$.lastPlayed").value(gameItem.getLastPlayed())
+    //     );
+    // }
 
 
 

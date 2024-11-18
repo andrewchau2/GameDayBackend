@@ -13,13 +13,8 @@ import com.fightbattle.gameday.service.GameItemService;
 @Service
 public class GameItemServiceImpl implements GameItemService {
 
-    public GameItemRepository gameItemRepository;
-
     @Autowired
-    public GameItemServiceImpl(GameItemRepository gameItemRepository){
-        this.gameItemRepository = gameItemRepository;
-    }
-
+    public GameItemRepository gameItemRepository;
 
     @Override
     public GameItemEntity find(Long id) {
@@ -32,42 +27,33 @@ public class GameItemServiceImpl implements GameItemService {
         gameItemRepository.deleteById(id);
     }
 
-
-    private boolean verifyIdSwap(Long currentId, Long newId){
-        boolean currentIdFound = gameItemRepository.findById(currentId).isPresent();
-        boolean newIdFound = gameItemRepository.findById(newId).isPresent();
-
-        if(currentIdFound == true && newIdFound == false){
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public GameItemEntity partialUpdate(Long id, GameItemEntity gameItem) {
-        boolean validOperation = verifyIdSwap(gameItem.getId(), id);
-        if(validOperation == false){
-            return null;
-        }
-
-        gameItem.setId(id);
-        return gameItemRepository.save(gameItem);
-    }
-
     @Override
     public GameItemEntity fullUpdate(GameItemEntity gameItem) {
-        return gameItemRepository.save(gameItem);
+        return create(gameItem);
     }
 
     @Override
-    public GameItemEntity create(GameItemEntity gameItemEntity) {
-        return gameItemRepository.save(gameItemEntity);
+    public GameItemEntity create(GameItemEntity gameItem) {
+        if(gameItem == null){
+            return null;
+        }
+        gameItem.setName(gameItem.getName().toLowerCase());
+        return gameItemRepository.save(gameItem);
     }
 
 
     @Override
     public List<GameItemEntity> findAll() {
         return gameItemRepository.findAll();
+    }
+
+    @Override
+    public GameItemEntity findByName(String name){
+        Iterable<GameItemEntity> res = gameItemRepository.findGameByName(name);
+        if(res.iterator().hasNext() == false){
+            return null;
+        }
+        return res.iterator().next();
     }
     
 }
