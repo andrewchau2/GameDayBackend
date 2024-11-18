@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fightbattle.gameday.pojo.entity.GameDayEntity;
-import com.fightbattle.gameday.pojo.entity.GameItemEntity;
 import com.fightbattle.gameday.repository.GameDayRepository;
 import com.fightbattle.gameday.repository.GameItemRepository;
 import com.fightbattle.gameday.service.GameDayService;
@@ -46,21 +45,5 @@ public class GameDayServiceImpl implements GameDayService{
     @Override
     public GameDayEntity create(GameDayEntity gameDayTrackerEntity) {
         return gameDayRepo.save(gameDayTrackerEntity);
-    }
-
-    // public GameItemEntity addToWishList(Long gameDayId, GameItem gameItemEntity)throws Exception{
-    //     Optional<GameDayEntity> gameDayFound = gameDayRepo.findById(gameDayId);
-
-    //     if(gameDayFound.isEmpty()){
-    //         throw new Exception("GameDay id is not found");
-    //     }
-
-    //     GameDayEntity gameDay = gameDayFound.get();
-    //     gameDay.getRecentlyPlayed().add(gameItemEntity)
-        
-
-        
-    //     return null;
-    // }
-    
+    } 
 }

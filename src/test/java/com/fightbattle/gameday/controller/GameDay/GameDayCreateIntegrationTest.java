@@ -29,11 +29,11 @@ public class GameDayCreateIntegrationTest {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private TestGameDayEntities createGames;
+    private TestGameDayEntities create;
 
     @Test
     public void testThatGameDayPutRequestReturns200StatusOk() throws Exception{
-        GameDayEntity gameDay = createGames.createTestGameDayItemA();
+        GameDayEntity gameDay = create.createTestGameDayItemA();
         String gameDayJson = objectMapper.writeValueAsString(gameDay);
 
         mockMvc.perform(
@@ -45,64 +45,64 @@ public class GameDayCreateIntegrationTest {
         );
     }
 
-    // @Test
-    // public void testThatGameDayASuccessfullyCreated() throws Exception{
-    //     GameDayEntity gameDay = gameDayItems.createTestGameDayItemA();
-    //     String gameDayJson = objectMapper.writeValueAsString(gameDay);
+    @Test
+    public void testThatGameDayASuccessfullyCreated() throws Exception{
+        GameDayEntity gameDay = create.createTestGameDayItemA();
+        String gameDayJson = objectMapper.writeValueAsString(gameDay);
 
-    //     mockMvc.perform(
-    //         MockMvcRequestBuilders.put("/gamedays")
-    //         .contentType(MediaType.APPLICATION_JSON)
-    //         .content(gameDayJson)
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$.id").isNumber()
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$.serverName").value(gameDay.getServerName())
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$.description").value(gameDay.getDescription())
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$.nextGameDay").value(gameDay.getNextGameDay())
-    //     );
-    // }
+        mockMvc.perform(
+            MockMvcRequestBuilders.put("/gamedays")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(gameDayJson)
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.id").isNumber()
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.serverName").value(gameDay.getServerName())
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.description").value(gameDay.getDescription())
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.nextGameDay").value(gameDay.getNextGameDay())
+        );
+    }
 
 
-    // @Test
-    // public void testThatGameDayBSuccessfullyCreated() throws Exception{
-    //     GameDayEntity gameDay = gameDayItems.createTestGameDayItemA();
-    //     String gameDayJson = objectMapper.writeValueAsString(gameDay);
+    @Test
+    public void testThatGameDayBSuccessfullyCreated() throws Exception{
+        GameDayEntity gameDay = create.createTestGameDayItemA();
+        String gameDayJson = objectMapper.writeValueAsString(gameDay);
 
-    //     mockMvc.perform(
-    //         MockMvcRequestBuilders.put("/gamedays")
-    //         .contentType(MediaType.APPLICATION_JSON)
-    //         .content(gameDayJson)
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$.id").isNumber()
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$.serverName").value(gameDay.getServerName())
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$.description").value(gameDay.getDescription())
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$.nextGameDay").value(gameDay.getNextGameDay())
-    //     );
-    // }
+        mockMvc.perform(
+            MockMvcRequestBuilders.put("/gamedays")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(gameDayJson)
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.id").isNumber()
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.serverName").value(gameDay.getServerName())
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.description").value(gameDay.getDescription())
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.nextGameDay").value(gameDay.getNextGameDay())
+        );
+    }
 
-    // @Test
-    // public void testThatGameDayNullSuccessfullyCreated() throws Exception{
-    //     GameDayEntity gameDay = gameDayItems.createTestGameDayItemNull();
-    //     String gameDayJson = objectMapper.writeValueAsString(gameDay);
+    @Test
+    public void testThatGameDayNullSuccessfullyCreated() throws Exception{
+        GameDayEntity gameDay = create.createTestGameDayItemNull();
+        String gameDayJson = objectMapper.writeValueAsString(gameDay);
 
-    //     mockMvc.perform(
-    //         MockMvcRequestBuilders.put("/gamedays")
-    //         .contentType(MediaType.APPLICATION_JSON)
-    //         .content(gameDayJson)
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$.id").isNumber()
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$.serverName").value(gameDay.getServerName())
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$.description").value(gameDay.getDescription())
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$.nextGameDay").value(gameDay.getNextGameDay())
-    //     );
-    // }
+        mockMvc.perform(
+            MockMvcRequestBuilders.put("/gamedays")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(gameDayJson)
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.id").isNumber()
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.serverName").value(gameDay.getServerName())
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.description").value(gameDay.getDescription())
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.nextGameDay").value(gameDay.getNextGameDay())
+        );
+    }
 }

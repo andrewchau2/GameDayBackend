@@ -1,8 +1,7 @@
 package com.fightbattle.gameday.pojo.entity;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -49,7 +48,14 @@ public class GameDayEntity {
             joinColumns = @JoinColumn(name = "game_day_id"),
             inverseJoinColumns = @JoinColumn(name = "game_item_id")
     )
-    private Set<GameItemEntity> recentlyPlayed = new HashSet<>() ;
+    private Set<GameItemEntity> recentlyPlayed = new LinkedHashSet<>();
 
-    //public List<GameItemEntity> wishlist;
+
+    @ManyToMany
+    @JoinTable(
+            name = "wishlist",
+            joinColumns = @JoinColumn(name = "game_day_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_item_id")
+    )
+    public Set<GameItemEntity> wishlist = new LinkedHashSet<>();
 }
