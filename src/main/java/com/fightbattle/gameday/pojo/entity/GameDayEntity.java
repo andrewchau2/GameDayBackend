@@ -29,7 +29,7 @@ import lombok.ToString;
 @ToString
 @Builder
 @Entity
-@Table(name = "game_day_tracker")
+@Table(name = "game_day")
 public class GameDayEntity {
     
     @Id

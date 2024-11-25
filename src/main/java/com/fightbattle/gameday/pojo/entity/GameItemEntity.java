@@ -1,6 +1,9 @@
 package com.fightbattle.gameday.pojo.entity;
 
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -41,9 +44,7 @@ public class GameItemEntity {
 
     private String lastPlayed;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "gamepage_id", referencedColumnName = "id")
-    private GamePageEntity gamePage; 
+    //private Map<String, String> storePages;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "recentlyPlayed")

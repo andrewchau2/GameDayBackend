@@ -32,7 +32,7 @@ public class GameDayCreateIntegrationTest {
     private TestGameDayEntities create;
 
     @Test
-    public void testThatGameDayPutRequestReturns200StatusOk() throws Exception{
+    public void testThatGameDayPutRequestReturns200StatusCreated() throws Exception{
         GameDayEntity gameDay = create.createTestGameDayItemA();
         String gameDayJson = objectMapper.writeValueAsString(gameDay);
 
@@ -57,18 +57,22 @@ public class GameDayCreateIntegrationTest {
         ).andExpect(
             MockMvcResultMatchers.jsonPath("$.id").isNumber()
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.serverName").value(gameDay.getServerName())
+            MockMvcResultMatchers.jsonPath("$.serverName").value("chicken")
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.description").value(gameDay.getDescription())
+            MockMvcResultMatchers.jsonPath("$.description").value("Test description")
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.nextGameDay").value(gameDay.getNextGameDay())
+            MockMvcResultMatchers.jsonPath("$.nextGameDay").value("2024-07-11")
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.recentlyPlayed").isEmpty()
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.wishlist").isEmpty()
         );
     }
 
 
     @Test
     public void testThatGameDayBSuccessfullyCreated() throws Exception{
-        GameDayEntity gameDay = create.createTestGameDayItemA();
+        GameDayEntity gameDay = create.createTestGameDayItemB();
         String gameDayJson = objectMapper.writeValueAsString(gameDay);
 
         mockMvc.perform(
@@ -78,11 +82,15 @@ public class GameDayCreateIntegrationTest {
         ).andExpect(
             MockMvcResultMatchers.jsonPath("$.id").isNumber()
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.serverName").value(gameDay.getServerName())
+            MockMvcResultMatchers.jsonPath("$.serverName").value("can-opener")
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.description").value(gameDay.getDescription())
+            MockMvcResultMatchers.jsonPath("$.description").value("Test description")
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.nextGameDay").value(gameDay.getNextGameDay())
+            MockMvcResultMatchers.jsonPath("$.nextGameDay").value("2024-07-11")
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.recentlyPlayed").isEmpty()
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.wishlist").isEmpty()
         );
     }
 
@@ -98,11 +106,15 @@ public class GameDayCreateIntegrationTest {
         ).andExpect(
             MockMvcResultMatchers.jsonPath("$.id").isNumber()
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.serverName").value(gameDay.getServerName())
+            MockMvcResultMatchers.jsonPath("$.serverName").isEmpty()
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.description").value(gameDay.getDescription())
+            MockMvcResultMatchers.jsonPath("$.description").isEmpty()
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.nextGameDay").value(gameDay.getNextGameDay())
+            MockMvcResultMatchers.jsonPath("$.nextGameDay").isEmpty()
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.recentlyPlayed").isEmpty()
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.wishlist").isEmpty()
         );
     }
 }

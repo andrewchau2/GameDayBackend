@@ -38,12 +38,14 @@ public class GameDayServiceImpl implements GameDayService{
     }
     
     @Override
-    public GameDayEntity fullUpdate(GameDayEntity gameDayTrackerEntity) {
-        return gameDayRepo.save(gameDayTrackerEntity);
+    public GameDayEntity fullUpdate(GameDayEntity gameDayEntity) {
+        return create(gameDayEntity);
     }
 
     @Override
-    public GameDayEntity create(GameDayEntity gameDayTrackerEntity) {
-        return gameDayRepo.save(gameDayTrackerEntity);
+    public GameDayEntity create(GameDayEntity gameDayEntity) {
+        if(gameDayEntity == null)
+            return null;
+        return gameDayRepo.save(gameDayEntity);
     } 
 }

@@ -18,7 +18,7 @@ import com.fightbattle.gameday.pojo.entity.GameDayEntity;
 import com.fightbattle.gameday.service.GameDayService;
 
 @RestController
-public class GameDayControllerImpl implements GameDayController{
+public class GameDayCtrlImpl implements GameDayController{
 
     @Autowired
     private GameDayService gameDayService;

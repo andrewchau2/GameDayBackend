@@ -70,7 +70,7 @@ public class GameItemGetIntegrationTest {
     @Test
     public void testThatGamesListWithItemSuccessfullyFound() throws Exception{
 
-        GameItemEntity gameItem = gameService.create(create.createTestGameA());
+       gameService.create(create.createTestGameA());
         
         String url = "/games";
 
@@ -78,13 +78,13 @@ public class GameItemGetIntegrationTest {
                 MockMvcRequestBuilders.get(url)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$[0].id").isNumber()
+            MockMvcResultMatchers.jsonPath("$[0].id").isNumber()
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$[0].name").value(gameItem.getName())
+            MockMvcResultMatchers.jsonPath("$[0].name").value("street fighter")
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$[0].genre").value(gameItem.getGenre())
+            MockMvcResultMatchers.jsonPath("$[0].genre").value("Fighter")
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$[0].lastPlayed").value(gameItem.getLastPlayed())
+            MockMvcResultMatchers.jsonPath("$[0].lastPlayed").value("1999-02-13")
         );
     }
 

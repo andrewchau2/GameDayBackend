@@ -6,11 +6,15 @@ services:
     ports:
       - "5432:5432"
     restart: always
-    networks:
-      - spring-cloud-network
     environment:
+      POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: password
-      
-networks:
-    spring-cloud-network:
-        driver: bridge
+
+  gameday-server:
+    container_name: gameday-server
+    build: .
+    image: gameday-server:latest
+    ports:
+      - 8080:8080
+    depends_on:
+      - gameday-db

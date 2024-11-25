@@ -36,7 +36,7 @@ public class GameDayDeleteIntegrationTest {
     GameDayService gameDayService;
 
     @Test
-    public void testThatGameDayDeleteExistsAndRequestReturns204NotFound() throws Exception{
+    public void testThatGameDayDeleteExistsAndRequestReturns204NoContent() throws Exception{
         GameDayEntity gameDay = create.createTestGameDayItemA();
         
         String gameDayJson = objectMapper.writeValueAsString(gameDay);
@@ -49,6 +49,19 @@ public class GameDayDeleteIntegrationTest {
             .content(gameDayJson)
         ).andExpect(
             MockMvcResultMatchers.status().isNoContent()
+        );
+    }
+
+    @Test
+    public void testThatGameDayDeleteSuccessfullyDeletesAndReturns404NotFound() throws Exception{
+        GameDayEntity output = gameDayService.create(create.createTestGameDayItemA());
+        String url = "/gamedays/" + output.getId();
+        gameDayService.delete(output.getId());
+        
+        mockMvc.perform(
+            MockMvcRequestBuilders.get(url)
+        ).andExpect(
+            MockMvcResultMatchers.status().isNotFound()
         );
     }
 

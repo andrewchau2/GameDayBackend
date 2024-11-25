@@ -19,7 +19,7 @@ import com.fightbattle.gameday.service.GameDayService;
 import com.fightbattle.gameday.service.GameItemService;
 
 @RestController
-public class GameDayAndItemControllerImpl implements GameDayAndItemController {
+public class GameDayNItemCtrlImpl implements GameDayAndItemController {
 
     @Autowired
     private GameDayService gameDayService;

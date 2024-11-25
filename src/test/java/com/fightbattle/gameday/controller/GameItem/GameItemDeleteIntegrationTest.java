@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fightbattle.gameday.pojo.entity.GameDayEntity;
 import com.fightbattle.gameday.pojo.entity.GameItemEntity;
 import com.fightbattle.gameday.service.GameItemService;
 import com.fightbattle.gameday.util.entities.TestGameItemEntities;
@@ -48,6 +49,22 @@ public class GameItemDeleteIntegrationTest {
             MockMvcResultMatchers.status().isNoContent()
         );
     }
+
+        @Test
+    public void testThatGameDayDeleteSuccessfullyDeletesAndReturns404NotFound() throws Exception{
+        GameItemEntity gameItem = create.createTestGameA();
+
+        GameItemEntity output = gameService.create(create.createTestGameA());
+        String url = "/gamedays/" + output.getId();
+        gameService.delete(gameItem.getId());
+        
+        mockMvc.perform(
+            MockMvcRequestBuilders.get(url)
+        ).andExpect(
+            MockMvcResultMatchers.status().isNotFound()
+        );
+    }
+
 
     @Test
     public void testThatGameItemNotExistAndDeleteReturns204NoContent() throws Exception{

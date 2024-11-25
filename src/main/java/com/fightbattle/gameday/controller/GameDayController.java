@@ -13,7 +13,7 @@ public interface GameDayController {
 
     public ResponseEntity<GameDayEntity> create(GameDayEntity a);
 
-    public ResponseEntity<GameDayEntity> fullUpdate(GameDayEntity newGameDay, Long id);
+    public ResponseEntity<GameDayEntity> update(GameDayEntity newGameDay, Long id);
 
     public ResponseEntity<GameDayEntity> delete(Long id);
 

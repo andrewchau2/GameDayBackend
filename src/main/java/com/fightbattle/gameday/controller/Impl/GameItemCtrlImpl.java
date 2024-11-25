@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,13 +18,13 @@ import com.fightbattle.gameday.pojo.entity.GameItemEntity;
 import com.fightbattle.gameday.service.GameItemService;
 
 @RestController
-public class GameItemControllerImpl implements GameItemController{
+public class GameItemCtrlImpl implements GameItemController{
     
     private GameItemService gameItemService;
 
 
     @Autowired
-    public GameItemControllerImpl(GameItemService gameItemService){
+    public GameItemCtrlImpl(GameItemService gameItemService){
         this.gameItemService = gameItemService;
     }
 
@@ -40,23 +41,30 @@ public class GameItemControllerImpl implements GameItemController{
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
+    @PostMapping(path = "/games/{id}")
+    public ResponseEntity<GameItemEntity> update(@RequestBody GameItemEntity gameItemEntity, @PathVariable(name="id") Long id){
+        if(gameItemService.find(id) == null){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        
+        GameItemEntity updated = gameItemService.fullUpdate(gameItemEntity);
+        return new ResponseEntity<>(updated, HttpStatus.NOT_FOUND);
+    }
 
-    @SuppressWarnings("rawtypes")
     @DeleteMapping(path = "/games/{id}")
-    public ResponseEntity delete(@PathVariable("id") Long id){
+    public ResponseEntity<GameItemEntity> delete(@PathVariable("id") Long id){
         gameItemService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
     @GetMapping(path = "/games/{id}")
     public ResponseEntity<GameItemEntity> getById(@PathVariable("id") Long id){
         GameItemEntity gameItemEntity = gameItemService.find(id);
-        
+        System.out.println(gameItemEntity);
         if(gameItemEntity == null){
             return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(gameItemEntity, HttpStatus.FOUND);
     }
-
 }
 

@@ -31,7 +31,6 @@ public class GameItemCreateIntegrationTest {
     @Autowired
     private TestGameItemEntities createGames;
 
-
     @Test
     public void testThatCreateGameSuccessfullyReturns201Created() throws Exception{
         GameItemEntity gameItem = createGames.createTestGameA();
@@ -53,7 +52,7 @@ public class GameItemCreateIntegrationTest {
     @Test
     public void testThatCreateGameASuccessfullyCreated() throws Exception{
         GameItemEntity gameItem = createGames.createTestGameA();
-
+        
         gameItem.setId(null); //Id is auto-generated
         String gameJson = objectMapper.writeValueAsString(gameItem);
 
@@ -64,11 +63,12 @@ public class GameItemCreateIntegrationTest {
         ).andExpect(
             MockMvcResultMatchers.jsonPath("$.id").isNumber()
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.name").value(gameItem.getName())
+            MockMvcResultMatchers.jsonPath("$.name").value("street fighter")
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.lastPlayed").value(gameItem.getLastPlayed())
+            MockMvcResultMatchers.jsonPath("$.genre").value("Fighter")
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.lastPlayed").value("1999-02-13")
         );
-        
     }
 
 
@@ -87,9 +87,11 @@ public class GameItemCreateIntegrationTest {
         ).andExpect(
             MockMvcResultMatchers.jsonPath("$.id").isNumber()
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.name").value(gameItem.getName())
+            MockMvcResultMatchers.jsonPath("$.name").value("7 days to die")
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.lastPlayed").value(gameItem.getLastPlayed())
+            MockMvcResultMatchers.jsonPath("$.genre").value("Survival")
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.lastPlayed").value("2011-09-21")
         );
         
         
@@ -109,33 +111,11 @@ public class GameItemCreateIntegrationTest {
         ).andExpect(
             MockMvcResultMatchers.jsonPath("$.id").isNumber()
         ).andExpect(
-            MockMvcResultMatchers.jsonPath("$.name").value(gameItem.getName())
+            MockMvcResultMatchers.jsonPath("$.name").value("minecraft")
+         ).andExpect(
+            MockMvcResultMatchers.jsonPath("$.genre").value("Survival")
          ).andExpect(
             MockMvcResultMatchers.jsonPath("$.lastPlayed").value(gameItem.getLastPlayed())
         );
     }
-
-
-    // @Test
-    // public void testThatCreateGameNullSuccessfullyCreated() throws Exception{
-    //     GameItemEntity gameItem = createGames.createTestGameNull();
-
-    //     gameItem.setId(null); //Id is auto-generated
-    //     String gameJson = objectMapper.writeValueAsString(gameItem);
-
-    //     mockMvc.perform(
-    //         MockMvcRequestBuilders.put("/games")
-    //                     .contentType(MediaType.APPLICATION_JSON)
-    //                     .content(gameJson)
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$.id").isNumber()
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$.name").value(gameItem.getName())
-    //      ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$.lastPlayed").value(gameItem.getLastPlayed())
-    //     );
-    // }
-
-
-
 }

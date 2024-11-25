@@ -14,8 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.fightbattle.gameday.pojo.entity.GameItemEntity;
-import com.fightbattle.gameday.pojo.entity.GamePageEntity;
+import com.fightbattle.gameday.pojo.entity.GameDayEntity;
 import com.fightbattle.gameday.service.GameDayService;
 import com.fightbattle.gameday.util.entities.TestGameDayEntities;
 
@@ -33,87 +32,91 @@ public class GameDayGetIntegrationTest {
     GameDayService gameDayService;
 
     @Autowired
-    TestGameDayEntities testGameDay;
+    TestGameDayEntities create;
 
 
-    // @Test
-    // public void testThatGetOneGamePageGetRequestReturns304Found() throws Exception{
+    @Test
+    public void testThatGetOneGamePageGetRequestReturns302Found() throws Exception{
+        GameDayEntity gameday = create.createTestGameDayItemA(); 
+        gameDayService.create(gameday);
+        String url = "/gamedays/" + gameday.getId();
 
-    //     String url = "/gamedays/" + gameday.getId();
+        mockMvc.perform(
+            MockMvcRequestBuilders.get(url)
+        ).andExpect(
+            MockMvcResultMatchers.status().isFound()
+        );
+    }
 
-    //     mockMvc.perform(
-    //         MockMvcRequestBuilders.get(url)
-    //     ).andExpect(
-    //         MockMvcResultMatchers.status().isFound()
-    //     );
-    // }
+    @Test
+    public void testThatGetOneGamePageGetRequestReturns404NotFound() throws Exception{
+        String url = "/gamedays/99999";
 
-    // @Test
-    // public void testThatGetOneGamePageGetRequestReturns404NotFound() throws Exception{
-    //     String url = "/gamepages/99999";
+        mockMvc.perform(
+            MockMvcRequestBuilders.get(url)
+        ).andExpect(
+            MockMvcResultMatchers.status().isNotFound()
+        );
+    }
 
-    //     mockMvc.perform(
-    //         MockMvcRequestBuilders.get(url)
-    //     ).andExpect(
-    //         MockMvcResultMatchers.status().isNotFound()
-    //     );
-    // }
+    @Test
+    public void testThatGetGamePageListWithNoItemGetRequestReturns204Found() throws Exception{
+        String url = "/gamedays";
 
-    // @Test
-    // public void testThatGetGamePageListWithNoItemGetRequestReturns204Found() throws Exception{
-    //     String url = "/gamepages";
+        mockMvc.perform(
+            MockMvcRequestBuilders.get(url)
+        ).andExpect(
+            MockMvcResultMatchers.status().isFound()
+        );
+    }
 
-    //     mockMvc.perform(
-    //         MockMvcRequestBuilders.get(url)
-    //     ).andExpect(
-    //         MockMvcResultMatchers.status().isFound()
-    //     );
-    // }
+    @Test
+    public void testThatGamesListWithItemSuccessfullyFound() throws Exception{
 
-    // @Test
-    // public void testThatGamesListWithItemSuccessfullyFound() throws Exception{
-
-    //     GamePageEntity gamePage = gamePageService.create(
-    //         gamePageMapper.mapTo(create.createTestPageA()));
+        gameDayService.create(create.createTestGameDayItemA());
             
         
-    //     String url = "/gamepages";
+        String url = "/gamedays";
 
-    //     mockMvc.perform(
-    //             MockMvcRequestBuilders.get(url)
-    //                     .contentType(MediaType.APPLICATION_JSON)
-    //     ).andExpect(
-    //             MockMvcResultMatchers.jsonPath("$[0].id").isNumber()
-    //     ).andExpect(
-    //             MockMvcResultMatchers.jsonPath("$[0].steamLink").value(gamePage.getSteamLink())
-    //     ).andExpect(
-    //             MockMvcResultMatchers.jsonPath("$[0].cdKeyLink").value(gamePage.getCdKeyLink())
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$[0].g2aLink").value(gamePage.getG2aLink())
-    //     );
-    // }
+        mockMvc.perform(
+                MockMvcRequestBuilders.get(url)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$[0].id").isNumber()
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$[0].description").value("Test description")
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$[0].nextGameDay").value("2024-07-11")
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$[0].serverName").value("chicken")
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$[0].recentlyPlayed").isEmpty()
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$[0].wishlist").isEmpty()
+        );
+    }
 
 
 
-    // @Test
-    // public void testThatGamesListWithItemGetRequestReturns204Found() throws Exception{
-    //     List<GamePageDto> insertList = List.of(
-    //         create.createTestPageA(),
-    //         create.createTestPageB()
-    //     );
-    //     for (GamePageDto gamePage : insertList) {
-    //         gamePageService.create(gamePageMapper.mapTo(gamePage));
-    //     }
-    //     String url = "/gamepages";
+    @Test
+    public void testThatGamesListWithItemGetRequestReturns204Found() throws Exception{
+        List<GameDayEntity> insertList = List.of(
+            create.createTestGameDayItemA(),
+            create.createTestGameDayItemB()
+        );
+        for (GameDayEntity gameDay : insertList) {
+            gameDayService.create(gameDay);
+        }
+        String url = "/gamedays";
 
-    //     mockMvc.perform(
-    //         MockMvcRequestBuilders.get(url)
-    //     ).andExpect(
-    //         MockMvcResultMatchers.status().isFound()
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$[0].id").isNumber()
-    //     ).andExpect(
-    //         MockMvcResultMatchers.jsonPath("$[1].id").isNumber()
-    //     );
-    // }
+        mockMvc.perform(
+            MockMvcRequestBuilders.get(url)
+        ).andExpect(
+            MockMvcResultMatchers.status().isFound()
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$[0].id").isNumber()
+        ).andExpect(
+            MockMvcResultMatchers.jsonPath("$[1].id").isNumber()
+        );
+    }
 }
