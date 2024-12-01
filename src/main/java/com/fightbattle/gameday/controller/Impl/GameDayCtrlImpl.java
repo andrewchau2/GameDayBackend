@@ -43,13 +43,13 @@ public class GameDayCtrlImpl implements GameDayController{
     }
 
     @PostMapping(path="/gamedays/{id}")
-    public ResponseEntity<GameDayEntity> fullUpdate(@RequestBody GameDayEntity newGameDay, @PathVariable(name="id") Long id){
+    public ResponseEntity<GameDayEntity> update(@RequestBody GameDayEntity newGameDay, @PathVariable(name="id") Long id){
         if(gameDayService.find(id) == null){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         
         GameDayEntity updated = gameDayService.fullUpdate(newGameDay);
-        return new ResponseEntity<>(updated, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(updated, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping(path="/gamedays/{id}")
@@ -57,5 +57,4 @@ public class GameDayCtrlImpl implements GameDayController{
         gameDayService.delete(id);
         return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
     }
-    
 }

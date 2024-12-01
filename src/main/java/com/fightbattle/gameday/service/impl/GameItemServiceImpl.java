@@ -46,14 +46,5 @@ public class GameItemServiceImpl implements GameItemService {
     public List<GameItemEntity> findAll() {
         return gameItemRepository.findAll();
     }
-
-    @Override
-    public GameItemEntity findByName(String name){
-        Iterable<GameItemEntity> res = gameItemRepository.findGameByName(name);
-        if(res.iterator().hasNext() == false){
-            return null;
-        }
-        return res.iterator().next();
-    }
     
 }

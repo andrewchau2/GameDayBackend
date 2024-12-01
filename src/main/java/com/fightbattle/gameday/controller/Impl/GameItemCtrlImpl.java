@@ -48,7 +48,7 @@ public class GameItemCtrlImpl implements GameItemController{
         }
         
         GameItemEntity updated = gameItemService.fullUpdate(gameItemEntity);
-        return new ResponseEntity<>(updated, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(updated, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping(path = "/games/{id}")

@@ -1,21 +1,18 @@
 package com.fightbattle.gameday.pojo.entity;
 
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,7 +41,10 @@ public class GameItemEntity {
 
     private String lastPlayed;
 
-    //private Map<String, String> storePages;
+    @JsonIgnore
+    @OneToMany(mappedBy = "gameItem")
+    private Set<GamePageEntity> gamePages = new HashSet<>();
+
 
     @JsonIgnore
     @ManyToMany(mappedBy = "recentlyPlayed")
